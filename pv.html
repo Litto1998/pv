@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA V Vehicles Catalog</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        :root {
+            --primary: #f1c40f;
+            --secondary: #e74c3c;
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --card-bg: rgba(45, 45, 45, 0.9);
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .mode-selection {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .mode-title {
+            font-size: 3.5rem;
+            color: var(--primary);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(241,196,15,0.5);
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .mode-btn {
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .mode-btn:hover::before {
+            left: 100%;
+        }
+
+        .mode-btn.stock {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+
+        .mode-btn.addon {
+            background-color: var(--secondary);
+            color: var(--light);
+        }
+
+        .catalog {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: rgba(0,0,0,0.9);
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            background-color: rgba(255,255,255,0.1);
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+
+        .categories {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-btn {
+            background-color: rgba(241,196,15,0.2);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .category-btn:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+
+        .category-btn.active {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+
+        .vehicles-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .vehicle-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid rgba(241,196,15,0.2);
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(241,196,15,0.2);
+        }
+
+        .vehicle-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .vehicle-info {
+            padding: 1rem;
+        }
+
+        .vehicle-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .vehicle-details {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .spawn-code {
+            background-color: rgba(231,76,60,0.2);
+            color: var(--secondary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            border: 1px solid var(--secondary);
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--primary);
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .back-btn {
+            background-color: var(--secondary);
+            color: var(--light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .mode-title {
+                font-size: 2.5rem;
+                padding: 0 1rem;
+            }
+
+            .mode-buttons {
+                flex-direction: column;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mode-selection" id="modeSelection">
+        <h1 class="mode-title">PEAKVILLE VEHICLES</h1>
+        <div class="mode-buttons">
+            <button class="mode-btn stock" onclick="selectMode('stock')">Stock</button>
+            <button class="mode-btn addon" onclick="selectMode('addon')">Addon</button>
+        </div>
+    </div>
+
+    <div class="catalog" id="catalog">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">PEAKVILLE VEHICLES</h1>
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Cerca un veicolo..." id="searchInput">
+                </div>
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Indietro
+                </button>
+            </div>
+        </header>
+
+        <div class="categories" id="categoryButtons"></div>
+        <div class="vehicles-grid" id="vehiclesGrid"></div>
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+const stockVehicles = {
+    'Berline': [
+        { name: 'Brioso2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_compacts_main_brioso-300.webp' },
+        { name: 'Issi2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_compacts_main_issi-classic.webp' },
+        { name: 'Rhapsody', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_compacts_main_rhapsody.webp' },
+        { name: 'Weevil', image: 'https://www.gtabase.com/images/gta-5/vehicles/compacts/main/weevil.jpg' },
+        { name: 'Emperor', image: 'https://www.gtabase.com/images/gta-5/vehicles/sedans/main/emperor.jpg' },
+        { name: 'Glendale', image: 'https://www.gtabase.com/images/gta-5/vehicles/sedans/main/glendale.jpg' },
+        { name: 'Regina', image: 'https://www.gtabase.com/images/gta-5/vehicles/sedans/main/regina.jpg' },
+        { name: 'Stafford', image: 'https://www.gtabase.com/images/gta-5/vehicles/sedans/main/stafford.jpg' }
+],
+    'SUV': [
+        { name: 'Seminole2', image: 'https://static.wikia.nocookie.net/gtawiki/images/0/0c/SeminoleFrontier-GTAO-front.png/revision/latest/scale-to-width-down/1000?cb=20200811143236' }
+    ],
+    'Muscle': [
+        { name: 'Blade', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_muscle_main_blade.webp' },
+        { name: 'Brigham', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/brigham.jpg' },
+        { name: 'Broadway', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/broadway.jpg' },
+        { name: 'Buccaneer', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/buccaneer.jpg' },
+        { name: 'Chino', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/chino.jpg' },
+        { name: 'Clique', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/clique.jpg' },
+        { name: 'Clique2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_muscle_main_clique-wagon.webp' },
+        { name: 'Coquette3', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_muscle_main_coquette-blackfin.webp' },
+        { name: 'Deviant', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/deviant.jpg' },
+    { name: 'Dominator8', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/dominator-gtt.jpg' },
+    { name: 'Dukes', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/dukes.jpg' },
+    { name: 'Ellie', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/ellie.jpg' },
+    { name: 'Eudora', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/eudora.jpg' },
+    { name: 'Gauntlet3', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_muscle_main_gauntlet-classic.webp' },
+    { name: 'Gauntlet5', image: 'https://static.wikia.nocookie.net/gtawiki/images/f/f8/GauntletClassicCustom-GTAO-front.png/revision/latest/scale-to-width-down/1000?cb=20200812100108' },
+    { name: 'Greenwood', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/greenwood.jpg' },
+    { name: 'Hermes', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/hermes.jpg' },
+    { name: 'Hotknife', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/hotknife.jpg' },
+    { name: 'Hustler', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/hustler.jpg' },
+    { name: 'Impaler', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/impaler.jpg' },
+    { name: 'Impaler6', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/impaler-lx.jpg' },
+    { name: 'Nightshade', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/nightshade.jpg' },
+    { name: 'Picador', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/picador.jpg' },
+    { name: 'Ratloader', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_muscle_main_rat-loader.webp' },
+    { name: 'Sabregt', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_muscle_main_sabre-turbo.webp' },
+    { name: 'Slamvan', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/slamvan.jpg' },
+    { name: 'Stallion', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/stallion.jpg' },
+    { name: 'Tahoma', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/tahoma.jpg' },
+    { name: 'Tampa', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/tampa.jpg' },
+    { name: 'Tulip', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/tulip.jpg' },
+    { name: 'Tulip2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_muscle_main_tulip-m-100.webp' },
+    { name: 'Vamos', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/vamos.jpg' },
+    { name: 'Vigero', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/vigero.jpg' },
+    { name: 'Virgo', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/virgo.jpg' },
+    { name: 'Virgo3', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_muscle_main_virgo-classic-main.webp' },
+    { name: 'Voodoo', image: 'https://www.gtabase.com/images/gta-5/vehicles/muscle/main/voodoo.jpg' }
+        
+    ],
+    'Sportive Classiche': [
+        { name: 'Btype', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/roosevelt.jpg' },
+        { name: 'Btype2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports-classic_main_franken-stange.webp' },
+        { name: 'Btype3', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports-classic_main_roosevelt-valor.webp' },
+        { name: 'Casco', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/casco.jpg' },
+    { name: 'Cheburek', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/cheburek.jpg' },
+    { name: 'Coquette2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports-classic_main_coquette-classic.webp' },
+    { name: 'Dynasty', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/dynasty.jpg' },
+    { name: 'Fagaloa', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/fagaloa.jpg' },
+    { name: 'Feltzer3', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports-classic_main_stirling-gt.webp' },
+    { name: 'GT500', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/gt500.jpg' },
+    { name: 'Mamba', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/mamba.jpg' },
+    { name: 'Manana', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/manana.jpg' },
+    { name: 'Michelli', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports-classic_main_michelli-gt.webp' },
+    { name: 'Monroe', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/monroe.jpg' },
+    { name: 'Peyote', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/peyote.jpg' },
+    { name: 'Rapidgt3', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports-classic_main_rapid-gt-classic.webp' },
+    { name: 'Retinue', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/retinue.jpg' },
+    { name: 'Savestra', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/savestra.jpg' },
+    { name: 'Stinger', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/stinger.jpg' },
+    { name: 'Swinger', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/swinger.jpg' },
+    { name: 'Torero', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/torero.jpg' },
+    { name: 'Tornado', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/tornado-convertible.jpg' },
+    { name: 'Tornado4', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports-classic_main_tornado-mariachi.webp' },
+    { name: 'Viseris', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/viseris.jpg' },
+    { name: '190z', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports-classic_main_190z.webp' },
+    { name: 'Ztype', image: 'https://www.gtabase.com/images/gta-5/vehicles/sports-classic/main/z-type.jpg' }    
+    ],
+    'Sportive':[
+    { name: 'tropos', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_sports_main_tropos-rallye.webp' },
+    { name: 'veto', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_temp_veto-classic.webp' }    
+    ],
+
+    'Moto': [
+    { name: 'Avarus', image: 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/avarus.jpg' },
+    { name: 'Cliffhanger', image: 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/cliffhanger.jpg' },
+    { name: 'Daemon2', image: 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/daemon-custom.jpg' },
+    { name: 'Enduro', image: 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/enduro.jpg' },
+    { name: 'Esskey', image: 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/esskey.jpg' },
+    { name: 'Faggio', image: 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/faggio.jpg' },
+    { name: 'Faggio3', image: 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/faggio-mod.jpg' },
+    { name: 'Wolfsbane', image: 'https://www.gtabase.com/images/gta-5/vehicles/motorcycles/main/wolfsbane.jpg' }
+],
+'Fuoristrada': [
+    { name: 'Injection', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_injection.webp' },
+    { name: 'Bodhi2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_bodhi.webp' },
+    { name: 'Dloader', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_duneloader.webp' },
+    { name: 'Dune', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_dune-buggy.webp' },
+    { name: 'Dune2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_space-docker.webp' },
+    { name: 'Hellion', image: 'https://www.gtabase.com/images/gta-5/vehicles/off-road/main/hellion.jpg' },
+    { name: 'Kalahari', image: 'https://www.gtabase.com/images/gta-5/vehicles/off-road/main/kalahari.jpg' },
+    { name: 'RancherXL', image: 'https://www.gtabase.com/images/gta-5/vehicles/off-road/main/rancher-xl.jpg' },
+    { name: 'Rebel', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_rebel.webp' },
+    { name: 'Rebel2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_off-road_main_rebel.webp' },
+    { name: 'Winky', image: 'https://www.gtabase.com/images/gta-5/vehicles/off-road/main/winky.jpg' }
+
+],
+'Utilità': [
+    { name: 'Caddy2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_utility_main_caddy-utility.webp' },
+    { name: 'Caddy3', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_utility_main_caddy-bunker.webp' },
+    { name: 'Scrap', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_utility_main_scrap-truck.webp' },
+    { name: 'Towtruck2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_utility_main_tow-truck.webp' },
+    { name: 'Tractor', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_utility_main_tractor.webp' },
+    { name: 'Journey', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_vans_main_journey.webp' },
+    { name: 'Journey2', image: 'https://static.wikia.nocookie.net/gtawiki/images/8/85/JourneyII-GTAOe-LiveryFront-LoveandPeace.png/revision/latest/scale-to-width-down/1000?cb=20230210182208' },
+    { name: 'Surfer3', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_vans_main_surfer.webp' },
+    { name: 'Youga2', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_vans_main_youga-classic.webp' },
+    { name: 'Forklift', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_utility_main_forklift.webp' }
+],
+'Bici': [
+{ name: 'BMX', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_cycles_main_bmx.webp'},
+{ name: 'Cruiser', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_cycles_main_cruiser.webp' },
+{ name: 'Fixter', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_cycles_main_fixter.webp' }    
+],
+'Aeroplani':[
+{ name: 'Streamer216', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_planes_main_streamer216.webp' },
+{ name: 'Dodo', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_planes_main_dodo.webp' }
+],
+'Elicotteri' : [
+{ name: 'Savage', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_helicopters_main_savage.webp' }
+],
+'Barche': [
+{ name: 'Dinghy5', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_boats_main_weaponized-dinghy.webp' },
+{ name: 'Patrolboat', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_boats_main_patrol-boat.webp' },
+{ name: 'Speeder2', image: 'https://www.gtabase.com/images/gta-5/vehicles/variants/speeder-yacht.jpg' },
+{ name: 'Toro2', image: 'https://www.gtabase.com/images/gta-5/vehicles/variants/toro-yacht.jpg' },
+{ name: 'Marquis', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_boats_marquis.webp' },
+{ name: 'Tug', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_boats_tug.webp' }
+],
+'Emergenza': [
+{ name: 'Polimpaler6', image: 'https://www.gtabase.com/igallery/gta5-database/impaler-lx-cruiser-360.jpg' },
+{ name: 'Polgreenwood', image: 'https://www.gtabase.com/images/gta-5/vehicles/emergency/greenwood-cruiser.jpg' },
+],
+'Militare': [
+{ name: 'Vetir', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_military_main_vetir.webp' },
+{ name: 'Chernobog', image: 'https://www.gtabase.com/images/jch-optimize/ng/images_gta-5_vehicles_military_main_chernobog.webp' }
+]
+}
+
+const addonVehicles = {
+    'Militari': [
+        { name: 'Ah1g', image: 'https://img.gta5-mods.com/q95/images/ah-1g-cobra-add-on/a59e88-0.jpg' }
+
+    ],
+    'Muscle':[
+    { name: 'ArbiterX', image: 'https://img.gta5-mods.com/q85-w800/images/imponte-arbiter-x-add-on-tuning-liveries/63a57a-sealy2_11zon.png' },
+{ name: 'DomC', image: 'https://img.gta5-mods.com/q95/images/vapid-dominator-classic/49881b-0.jpg' },
+{ name: 'GauntletC', image: 'https://img.gta5-mods.com/q95/images/bravado-gauntlet-classic-add-on-liveries-template/9ac6d5-1.jpg' },
+{ name: 'Paradox', image: 'https://img.gta5-mods.com/q95/images/willard-paradox-add-on-tuning-lods-shards/134d3e-enb2022_10_16_16_01_26_19.png' },
+{ name: 'Ratloader3', image: 'https://img.gta5-mods.com/q95/images/restored-bravado-rat-loader/6101af-GTA5%202017-06-20%2023-07-04-514.jpg' },
+{ name: 'Tannen', image: 'https://img.gta5-mods.com/q85-w800/images/vapid-tannen-add-on-lods-tuning-2-cars/1af11f-tannentop.png' },
+{ name: 'Starlett', image: 'https://img.gta5-mods.com/q95/images/bordeaux-starlette-add-on/73ae3d-starlette7-min.png' },
+{ name: 'Vulture', image: 'https://img.gta5-mods.com/q95/images/bravado-vulture-add-on-tuning-liveries-sounds/06b417-1-min.png' }
+    ],
+'Sportive':[
+{ name: 'Callista', image: 'https://img.gta5-mods.com/q95/images/pfister-comet-callista-add-on-tuning-liveries-sounds/83f848-0-min.png' },
+
+],
+'Sportive Classiche':[
+{ name: 'Elena', image: 'https://img.gta5-mods.com/q95/images/ocelot-elena-add-on-unlocked/5ed4db-untitled.101_1920.png' },
+{ name: 'Euphoria', image: 'https://img.gta5-mods.com/q95/images/ocelot-euphoria-add-on-tuning-liveries/e01410-0.png' },
+{ name: 'KriegerC', image: 'https://img.gta5-mods.com/q95/images/benefactor-krieger-bpx-32b-add-on-tuning-liveries-sounds/626082-0-min.png' },
+{ name: 'LynxMK1', image: 'https://img.gta5-mods.com/q95/images/ocelot-lynx-mk-i-add-on-tuning-liveries/cf1296-nasty2.png' },
+{ name: 'Mark1', image: 'https://img.gta5-mods.com/q95/images/maxwell-mk-1-add-on-tuning-lod-s-liveries-sounds-jerkov-bsquicklehausen-ft-vanillaworks-community/5183c2-mk1pics-2.png' },
+{ name: 'SancyB4', image: 'https://img.gta5-mods.com/q95/images/bordeaux-sancy-b4-add-on-tuning-liveries-sounds/6a7334-0-min.png' },
+{ name: 'Serena', image: 'https://img.gta5-mods.com/q95/images/dinka-serena-add-on-tuning-liveries-sounds/bc15fb-00-min.png' },
+{ name: 'Stardust', image: 'https://img.gta5-mods.com/q95/images/pfister-stardust-add-on-tuning/6dcacc-6.jpg' },
+{ name: 'StingerSC', image: 'https://img.gta5-mods.com/q95/images/grotti-stinger-sc/f3cfd7-StingerSC_Raw_1.png' }
+
+],
+'Servizio':[
+{ name: 'Bus2', image: 'https://img.gta5-mods.com/q95/images/lore-friendly-liveries-for-brute-bus-ivpack-gta-iv-style-add-on-replace-liveries-template/930ef5-2.jpg' },
+{ name: 'BusClassic', image: 'https://img.gta5-mods.com/q95/images/vapid-bus-classic-add-on-replace-liveries/10eb74-motormotel.jpg' }
+],
+'Furgoni':[
+{ name: 'DCerberus + Dtanker', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-300-hound-classic-tanker-trailer-add-on-liveries-template-monkeypolice188-et-al/afd141-Screenshot%20(4217).jpg' },
+{ name: 'Cerberus4', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-200-300-add-on-liveries-template/f96057-Screenshot%20(3830).jpg' },
+{ name: 'Cerberus5', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-200-300-add-on-liveries-template/f96057-Screenshot%20(3824).jpg' },
+{ name: 'CerberusC', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-stock-add-on-replace/b94cf9-EVE-20190124202822.017.jpg' },
+{ name: 'CerberusC2', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-stock-add-on-replace/b94cf9-20190127181638_1.jpg' },
+{ name: 'Haulmaster', image: 'https://img.gta5-mods.com/q95/images/jobuilt-haulmaster-add-on-replace/e93e23-unknown.png' },
+{ name: 'Haulmaster3', image: 'https://img.gta5-mods.com/q95/images/jobuilt-haulmaster-flatbed-add-on-replace/394906-20180702154844_1.jpg' },
+{ name: 'Mixer3', image: 'https://img.gta5-mods.com/q95/images/brute-tipper-based-mixer-classic-add-on/d9fa9c-Mixer1.jpg' },
+{ name: 'MuleF', image: 'https://img.gta5-mods.com/q95/images/mule-flatbed-add-on-replace/3b2d2b-main.jpg' },
+{ name: 'MuleR', image: 'https://img.gta5-mods.com/q95/images/maibatsu-mule-recovery-add-on/277fb8-1.-Thumbnail.jpg' },
+{ name: 'BoxvilleRetro', image: 'https://img.gta5-mods.com/q95/images/brute-boxville-retro-add-on-replace-liveries-template-sound-custom-shards/b78ca7-BoxvilleRetro6.jpg' },
+{ name: 'BoxvilleRetro2', image: 'https://img.gta5-mods.com/q95/images/brute-boxville-retro-add-on-replace-liveries-template-sound-custom-shards/b78ca7-BoxvilleRetro15.jpg' },
+{ name: 'Roadkiller', image: 'https://img.gta5-mods.com/q95/images/brute-roadkiller-add-on/0ff045-20180923145455_1.jpg' }
+],
+'Fuoristrada':[
+{ name: 'Coyote2', image: 'https://img.gta5-mods.com/q95/images/vapid-coyote-off-road-add-on-replace/06379a-GTA5%202017-05-29%2021-00-02-835.jpg' },
+{ name: 'Rancher3', image: 'https://img.gta5-mods.com/q95/images/declasse-rancher-pickup-add-on-replace/b8943b-GTA5%202017-09-11%2021-02-28-114.jpg' },
+{ name: 'Seccanis (Humane)', image: 'https://img.gta5-mods.com/q95/images/humane-labs-seminole-frontier-security-add-on/014938-20201107213627_1.jpg' },
+{ name: 'Dloader2', image: 'https://img.gta5-mods.com/q95/images/bravado-mastodon-duneloader-add-on-liveries-template/a3c3cf-Screenshot%20(4925).jpg' },
+
+],
+'Berline':[
+{ name: 'Greenwood2', image: 'https://img.gta5-mods.com/q95/images/schyster-greenwood-dani02/3614ae-GTA5%202017-08-03%2016-22-05-168.jpg' },
+{ name: 'Gwoods', image: 'https://gta5mod.net/wp-content/uploads/2022/01/Schyster-Greenwood-Classic-1536x864.jpg' },
+{ name: 'Panorama', image: 'https://img.gta5-mods.com/q95/images/classique-panorama-pack-add-on-tuning-liveries-lods/4fed19-image_2022-09-30_225359047.png' },
+{ name: 'Regina4', image: 'https://img.gta5-mods.com/q95/images/tlad-regina-sedan-replace/d9ef57-20171229175403_1.jpg' }
+],
+'Compatte':[
+{ name: 'Hippie', image: 'https://img.gta5-mods.com/q95/images/hippie-camp-car/516fad-vlcsnap-error459.jpg' },
+],
+'Moto':[
+{ name: 'LPChopper', image: 'https://img.gta5-mods.com/q95/images/lcc-blackwater-add-on-fivem-lods/7824d8-Capture.JPG' }
+]
+};
+
+
+        let currentMode = '';
+        let currentCategory = 'all';
+
+        async function fetchVehicleImage(vehicleName) {
+            try {
+                const response = await fetch(`https://gta.vercel.app/api/vehicles/${vehicleName.toLowerCase()}`);
+                const data = await response.json();
+                return data.image || null;
+            } catch (error) {
+                console.error('Error fetching vehicle image:', error);
+                return null;
+            }
+        }
+
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'flex' : 'none';
+        }
+
+ function selectMode(mode) {
+            currentMode = mode;
+            document.getElementById('modeSelection').style.display = 'none';
+            document.getElementById('catalog').style.display = 'block';
+            createCategoryButtons();
+            displayVehicles('all');
+        }
+
+        function goBack() {
+            document.getElementById('catalog').style.display = 'none';
+            document.getElementById('modeSelection').style.display = 'flex';
+            currentMode = '';
+        }
+
+ function createCategoryButtons() {
+            const container = document.getElementById('categoryButtons');
+            container.innerHTML = '';
+            
+            const allButton = document.createElement('button');
+            allButton.textContent = 'Tutti';
+            allButton.className = 'category-btn active';
+            allButton.onclick = () => filterVehicles('all');
+            container.appendChild(allButton);
+
+            const vehicles = currentMode === 'stock' ? stockVehicles : addonVehicles;
+            Object.keys(vehicles).forEach(category => {
+                const button = document.createElement('button');
+                button.textContent = category;
+                button.className = 'category-btn';
+                button.onclick = () => filterVehicles(category);
+                container.appendChild(button);
+            });
+        }
+
+        function displayVehicles(category, searchTerm = '') {
+    const grid = document.getElementById('vehiclesGrid');
+    grid.innerHTML = '';
+
+    let vehiclesToDisplay = [];
+    const vehicles = currentMode === 'stock' ? stockVehicles : addonVehicles;
+
+    if (category === 'all') {
+        Object.entries(vehicles).forEach(([cat, vehs]) => {
+            vehs.forEach(vehicle => {
+                vehiclesToDisplay.push({ ...vehicle, category: cat });
+            });
+        });
+    } else {
+        const categoryVehicles = vehicles[category];
+        categoryVehicles.forEach(vehicle => {
+            vehiclesToDisplay.push({ ...vehicle, category: category });
+        });
+    }
+
+    if (searchTerm) {
+        vehiclesToDisplay = vehiclesToDisplay.filter(vehicle => 
+            vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            vehicle.category.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }
+
+    vehiclesToDisplay.forEach(vehicle => {
+        const card = document.createElement('div');
+        card.className = 'vehicle-card';
+
+        // Costruzione del contenuto della card
+        let cardContent = `
+            <img class="vehicle-image" src="${vehicle.image || '/api/placeholder/400/200'}" alt="${vehicle.name}" />
+            <div class="vehicle-info">
+                <div class="vehicle-name">${vehicle.name}</div>
+                <div class="vehicle-details">
+                    <div>Categoria: ${vehicle.category}</div>
+                </div>
+                <div class="spawn-code">Spawn Code: ${vehicle.name.toLowerCase()}</div>
+            </div>
+        `;
+
+        card.innerHTML = cardContent;
+        grid.appendChild(card);
+    });
+
+    // Se non ci sono veicoli da mostrare, visualizza un messaggio
+    if (vehiclesToDisplay.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.style.gridColumn = '1 / -1';
+        noResults.style.textAlign = 'center';
+        noResults.style.padding = '2rem';
+        noResults.style.color = 'var(--primary)';
+        noResults.style.fontSize = '1.2rem';
+        noResults.innerHTML = 'Nessun veicolo trovato';
+        grid.appendChild(noResults);
+    }
+}
+
+
+
+        function filterVehicles(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === (category === 'all' ? 'Tutti' : category)) {
+                    btn.classList.add('active');
+                }
+            });
+            displayVehicles(category, document.getElementById('searchInput').value);
+        }
+
+        // Event listener per la ricerca
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            displayVehicles(currentCategory, e.target.value);
+        });
+
+        // Gestione degli errori di caricamento immagini
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName.toLowerCase() === 'img') {
+                e.target.src = '/api/placeholder/400/200';
+            }
+        }, true);
+
+        // Inizializzazione dello stato di caricamento
+        showLoading(false);
+    </script>
+</body>
+</html>
