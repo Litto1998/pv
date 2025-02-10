@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEDS E VEHICLES</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+:root {
+    --primary: #F7B538;         /* Giallo del logo */
+    --secondary: #E94F37;       /* Rosso del logo */
+    --accent: #1B998B;          /* Celestino/turchese del logo */
+    --dark: #2D3047;           /* Blu scuro per lo sfondo */
+    --light: #FFFCF2;          /* Bianco crema per il testo */
+    --card-bg: rgba(27, 153, 139, 0.15); /* Versione trasparente del turchese */
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+    min-height: 100vh;
+    background-image: linear-gradient(rgba(45, 48, 71, 0.9), rgba(45, 48, 71, 0.9)), url('/api/placeholder/1920/1080');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.mode-selection {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background-color: rgba(45, 48, 71, 0.95);
+}
+
+.mode-title {
+    font-size: 3.5rem;
+    color: var(--accent);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-shadow: 3px 3px 0px var(--secondary);
+}
+
+.mode-buttons {
+    display: flex;
+    gap: 2rem;
+}
+
+.mode-btn {
+    padding: 1rem 3rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+.mode-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.mode-btn:hover::before {
+    left: 100%;
+}
+
+.mode-btn.peds {
+    background-color: var(--primary);
+    color: var(--dark);
+    border: 2px solid var(--dark);
+}
+
+.mode-btn.vehicles {
+    background-color: var(--secondary);
+    color: var(--light);
+    border: 2px solid var(--light);
+}
+    </style>
+</head>
+<body>
+    <div class="mode-selection" id="modeSelection">
+        <h1 class="mode-title">PEDS E VEHICLES</h1>
+        <div class="mode-buttons">
+            <button class="mode-btn peds" onclick="window.location.href='peds.html'">Peds</button>
+            <button class="mode-btn vehicles" onclick="window.location.href='vehicles.html'">Vehicles</button>
+        </div>
+    </div>
+</body>
+</html>

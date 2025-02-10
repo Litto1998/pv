@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>peds PEAKVILLE</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+:root {
+    --primary: #F7B538;         /* Giallo del logo */
+    --secondary: #E94F37;       /* Rosso del logo */
+    --accent: #1B998B;          /* Celestino/turchese del logo */
+    --dark: #2D3047;           /* Blu scuro per lo sfondo */
+    --light: #FFFCF2;          /* Bianco crema per il testo */
+    --card-bg: rgba(27, 153, 139, 0.15); /* Versione trasparente del turchese */
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+    min-height: 100vh;
+    background-image: linear-gradient(rgba(45, 48, 71, 0.9), rgba(45, 48, 71, 0.9)), url('/api/placeholder/1920/1080');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.mode-selection {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background-color: rgba(45, 48, 71, 0.95);
+}
+
+.mode-title {
+    font-size: 3.5rem;
+    color: var(--accent);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-shadow: 3px 3px 0px var(--secondary);
+}
+
+.mode-buttons {
+    display: flex;
+    gap: 2rem;
+}
+
+.mode-btn {
+    padding: 1rem 3rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+.mode-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.mode-btn:hover::before {
+    left: 100%;
+}
+
+.mode-btn.stock {
+    background-color: var(--primary);
+    color: var(--dark);
+    border: 2px solid var(--dark);
+}
+
+.mode-btn.addon {
+    background-color: var(--secondary);
+    color: var(--light);
+    border: 2px solid var(--light);
+}
+
+.catalog {
+    display: none;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: var(--accent);
+    padding: 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 2rem;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px var(--dark);
+}
+
+.search-container {
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+    background-color: var(--light);
+    border-radius: 25px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    border: 2px solid var(--primary);
+    border-radius: 25px;
+    background-color: rgba(255, 252, 242, 0.1);
+    color: var(--dark);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+}
+
+.categories {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.category-btn {
+    background-color: rgba(27, 153, 139, 0.2);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.category-btn:hover, .category-btn.active {
+    background-color: var(--accent);
+    color: var(--light);
+}
+
+.peds-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.vehicle-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    border: 1px solid var(--accent);
+}
+
+.vehicle-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(27, 153, 139, 0.3);
+}
+
+.vehicle-image {
+    width: 100%;
+    height: 400px;
+    object-fit: contain; /* Mantiene le proporzioni senza distorcere l'immagine */
+    border-bottom: 2px solid var(--accent);
+}
+
+.vehicle-info {
+    padding: 1rem;
+}
+
+.vehicle-name {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 0px var(--dark);
+}
+
+.vehicle-details {
+    font-size: 0.9rem;
+    color: var(--light);
+    margin-bottom: 0.5rem;
+}
+
+.spawn-code {
+    background-color: rgba(233, 79, 55, 0.2);
+    color: var(--secondary);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-top: 0.5rem;
+    border: 1px solid var(--secondary);
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(45, 48, 71, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--accent);
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.back-btn {
+    background-color: var(--secondary);
+    color: var(--light);
+    border: 2px solid var(--light);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .mode-title {
+        font-size: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .mode-buttons {
+        flex-direction: column;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="mode-selection" id="modeSelection">
+        <h1 class="mode-title">PEAKVILLE peds</h1>
+        <div class="mode-buttons">
+            <button class="mode-btn stock" onclick="selectMode('stock')">Stock</button>
+            <button class="mode-btn addon" onclick="selectMode('addon')">Addon</button>
+        </div>
+    </div>
+
+    <div class="catalog" id="catalog">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">PEAKVILLE peds</h1>
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Cerca un ped..." id="searchInput">
+                </div>
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Indietro
+                </button>
+            </div>
+        </header>
+
+        <div class="categories" id="categoryButtons"></div>
+        <div class="peds-grid" id="pedsGrid"></div>
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+const stockpeds = {
+   'Male':[
+
+
+
+   ],
+   'Female':[
+
+   ],
+'Special':[
+    
+]
+}
+
+const addonpeds = {
+      'Male':[
+{ name: 'ig_xing', image: 'assets/ig_xing.png' },
+{ name: 'ig_snupe', image: 'assets/ig_snupe.png' },
+{ name: 'sirvirini', image: 'assets/sirvirini.png' },
+{ name: 'ig_magrao', image: 'assets/ig_magrao.png' },
+{ name: 'ig_pmoney', image: 'assets/ig_pmoney.png' },
+{ name: 'ig_fingle', image: 'assets/ig_fingle.png' },
+{ name: 'ig_hatcarl', image: 'assets/ig_hatcarl.png' },
+{ name: 'ig_peanut', image: 'assets/ig_peanut.png' },
+{ name: 'ig_nottics', image: 'assets/ig_nottics.png' },
+{ name: 'ig_marlo', image: 'assets/ig_marlo.png' },
+{ name: 'ig_crane', image: 'assets/ig_crane.png' },
+{ name: 'ig_walt', image: 'assets/ig_walt.png' },
+{ name: 'z_sprinkle', image: 'assets/z_sprinkle.png' },
+{ name: 'ig_krit', image: 'assets/ig_krit.png' },
+{ name: 'k_abdul', image: 'assets/k_abdul.png' },
+{ name: 'ig_leslie', image: 'assets/ig_leslie.png' },
+{ name: 'IG_Taochen', image: 'assets/IG_Taochen.png' },
+{ name: 'ig_dw', image: 'assets/ig_dw.png' },
+{ name: 'DougCanada', image: 'assets/DougCanada.png' },
+{ name: 'walter', image: 'assets/walter.png' },
+{ name: 'bobby_brown', image: 'assets/bobby_brown.png' },
+{ name: 'ig_shevy', image: 'assets/ig_shevy.png' },
+{ name: 'ig_tony', image: 'assets/ig_tony.png' },
+{ name: 'A_M_M_Taco', image: 'assets/A_M_M_Taco.png' },
+{ name: 'A_M_M_mel', image: 'assets/A_M_M_mel.png' },
+{ name: 'ig_trafficwarden_m', image: 'assets/ig_trafficwarden_m.png' },
+{ name: 'a_m_m_ktown_m', image: 'assets/a_m_m_ktown_m.png' },
+{ name: 'a_m_y_stbla_m', image: 'assets/a_m_y_stbla_m.png' },
+{ name: 'ig_gladys', image: 'assets/ig_gladys.png' },
+{ name: 'A_M_O_Eugene', image: 'assets/A_M_O_Eugene.png' },
+{ name: 'G_M_Y_Gary', image: 'assets/G_M_Y_Gary.png' },
+{ name: 'IG_Rudi', image: 'assets/IG_Rudi.png' },
+{ name: 'A_F_M_Trish', image: 'assets/A_F_M_Trish.png' },
+{ name: 'S_M_M_Snow', image: 'assets/S_M_M_Snow.png' },
+{ name: 'S_M_M_Jacob', image: 'assets/S_M_M_Jacob.png' },
+{ name: 'IG_Garrett', image: 'assets/IG_Garrett.png' },
+{ name: 'IG_speedy', image: 'assets/IG_speedy.png' },
+{ name: 'U_M_Y_Coop_Casual', image: 'assets/U_M_Y_Coop_Casual.png' },
+{ name: 'A_M_O_Bill', image: 'assets/A_M_O_Bill.png' },
+{ name: 'ig_siz', image: 'assets/ig_siz.png' },
+{ name: 'ig_huck', image: 'assets/ig_huck.png' },
+{ name: 'ig_mario', image: 'assets/ig_mario.png' },
+{ name: 'ig_nino', image: 'assets/ig_nino.png' },
+{ name: 'ig_avonB', image: 'assets/ig_avonB.png' },
+{ name: 'ig_cornwood', image: 'assets/ig_cornwood.png' },
+{ name: 'igor', image: 'assets/igor.png' },
+{ name: 's_m_m_ciasec_01', image: 'assets/s_m_m_ciasec_01.png' },
+{ name: 's_m_m_fibsec_01', image: 'assets/s_m_m_fibsec_01.png' },
+{ name: 's_m_y_sheriff_01', image: 'assets/s_m_y_sheriff_01.png' },
+{ name: 's_m_m_armoured_01', image: 'assets/s_m_m_armoured_01.png' },
+{ name: 's_m_m_armoured_02', image: 'assets/s_m_m_armoured_02.png' }
+
+
+   ],
+   'Female':[
+   { name: 'S_F_Y_NANCY', image: 'assets/S_F_Y_NANCY.png' },
+   { name: 'IG_old_lady_cop', image: 'assets/IG_old_lady_cop.png' },
+   { name: 'IG_sherry', image: 'assets/IG_sherry.png' },
+   { name: 'IG_Tessa', image: 'assets/IG_Tessa.png' },
+   { name: 'ig_petunia', image: 'assets/ig_petunia.png' },
+
+
+
+
+
+
+    
+   ],
+   'Animal':[
+{ name: 'BrnBear', image: 'assets/BrnBear.png' },
+{ name: 'A_C_Pit_NP', image: 'assets/A_C_Pit_NP.png' },
+{ name: 'A_C_Racoon_01', image: 'assets/A_C_Racoon_01.png' },
+{ name: 'a_c_horse', image: 'assets/a_c_horse.png' },
+{ name: 'A_C_Panther', image: 'assets/A_C_Panther.png' },
+
+
+
+    
+   ],
+
+'Special':[
+{ name: 'np_zombie', image: 'assets/np_zombie.png' },
+{ name: 'licker', image: 'assets/licker.png' },
+
+]
+
+};
+
+
+        let currentMode = '';
+        let currentCategory = 'all';
+
+        async function fetchVehicleImage(vehicleName) {
+            try {
+                const response = await fetch(`https://gta.vercel.app/api/peds/${vehicleName.toLowerCase()}`);
+                const data = await response.json();
+                return data.image || null;
+            } catch (error) {
+                console.error('Error fetching vehicle image:', error);
+                return null;
+            }
+        }
+
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'flex' : 'none';
+        }
+
+ function selectMode(mode) {
+            currentMode = mode;
+            document.getElementById('modeSelection').style.display = 'none';
+            document.getElementById('catalog').style.display = 'block';
+            createCategoryButtons();
+            displaypeds('all');
+        }
+
+        function goBack() {
+            document.getElementById('catalog').style.display = 'none';
+            document.getElementById('modeSelection').style.display = 'flex';
+            currentMode = '';
+        }
+
+ function createCategoryButtons() {
+            const container = document.getElementById('categoryButtons');
+            container.innerHTML = '';
+            
+            const allButton = document.createElement('button');
+            allButton.textContent = 'Tutti';
+            allButton.className = 'category-btn active';
+            allButton.onclick = () => filterpeds('all');
+            container.appendChild(allButton);
+
+            const peds = currentMode === 'stock' ? stockpeds : addonpeds;
+            Object.keys(peds).forEach(category => {
+                const button = document.createElement('button');
+                button.textContent = category;
+                button.className = 'category-btn';
+                button.onclick = () => filterpeds(category);
+                container.appendChild(button);
+            });
+        }
+
+        function displaypeds(category, searchTerm = '') {
+    const grid = document.getElementById('pedsGrid');
+    grid.innerHTML = '';
+
+    let pedsToDisplay = [];
+    const peds = currentMode === 'stock' ? stockpeds : addonpeds;
+
+    if (category === 'all') {
+        Object.entries(peds).forEach(([cat, vehs]) => {
+            vehs.forEach(vehicle => {
+                pedsToDisplay.push({ ...vehicle, category: cat });
+            });
+        });
+    } else {
+        const categorypeds = peds[category];
+        categorypeds.forEach(vehicle => {
+            pedsToDisplay.push({ ...vehicle, category: category });
+        });
+    }
+
+    if (searchTerm) {
+        pedsToDisplay = pedsToDisplay.filter(vehicle => 
+            vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            vehicle.category.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }
+
+    pedsToDisplay.forEach(vehicle => {
+        const card = document.createElement('div');
+        card.className = 'vehicle-card';
+
+        // Costruzione del contenuto della card
+        let cardContent = `
+            <img class="vehicle-image" src="${vehicle.image || '/api/placeholder/400/200'}" alt="${vehicle.name}" />
+            <div class="vehicle-info">
+                <div class="vehicle-name">${vehicle.name}</div>
+                <div class="vehicle-details">
+                    <div>Categoria: ${vehicle.category}</div>
+                </div>
+                <div class="spawn-code">Spawn Code: ${vehicle.name.toLowerCase()}</div>
+            </div>
+        `;
+
+        card.innerHTML = cardContent;
+        grid.appendChild(card);
+    });
+
+    // Se non ci sono peds da mostrare, visualizza un messaggio
+    if (pedsToDisplay.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.style.gridColumn = '1 / -1';
+        noResults.style.textAlign = 'center';
+        noResults.style.padding = '2rem';
+        noResults.style.color = 'var(--primary)';
+        noResults.style.fontSize = '1.2rem';
+        noResults.innerHTML = 'Nessun ped trovato';
+        grid.appendChild(noResults);
+    }
+}
+
+
+
+        function filterpeds(category) {
+            currentCategory = category;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === (category === 'all' ? 'Tutti' : category)) {
+                    btn.classList.add('active');
+                }
+            });
+            displaypeds(category, document.getElementById('searchInput').value);
+        }
+
+        // Event listener per la ricerca
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            displaypeds(currentCategory, e.target.value);
+        });
+
+        // Gestione degli errori di caricamento immagini
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName.toLowerCase() === 'img') {
+                e.target.src = '/api/placeholder/400/200';
+            }
+        }, true);
+
+        // Inizializzazione dello stato di caricamento
+        showLoading(false);
+    </script>
+</body>
+</html>
