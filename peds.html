@@ -1,304 +1,319 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>peds PEAKVILLE</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Rajdhani', sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
 
-:root {
-    --primary: #F7B538;         /* Giallo del logo */
-    --secondary: #E94F37;       /* Rosso del logo */
-    --accent: #1B998B;          /* Celestino/turchese del logo */
-    --dark: #2D3047;           /* Blu scuro per lo sfondo */
-    --light: #FFFCF2;          /* Bianco crema per il testo */
-    --card-bg: rgba(27, 153, 139, 0.15); /* Versione trasparente del turchese */
-}
+        :root {
+            --primary: #F7B538;
+            /* Giallo del logo */
+            --secondary: #E94F37;
+            /* Rosso del logo */
+            --accent: #1B998B;
+            /* Celestino/turchese del logo */
+            --dark: #2D3047;
+            /* Blu scuro per lo sfondo */
+            --light: #FFFCF2;
+            /* Bianco crema per il testo */
+            --card-bg: rgba(27, 153, 139, 0.15);
+            /* Versione trasparente del turchese */
+        }
 
-body {
-    background-color: var(--dark);
-    color: var(--light);
-    min-height: 100vh;
-    background-image: linear-gradient(rgba(45, 48, 71, 0.9), rgba(45, 48, 71, 0.9)), url('/api/placeholder/1920/1080');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(45, 48, 71, 0.9), rgba(45, 48, 71, 0.9)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
 
-.mode-selection {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    background-color: rgba(45, 48, 71, 0.95);
-}
+        .mode-selection {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            background-color: rgba(45, 48, 71, 0.95);
+        }
 
-.mode-title {
-    font-size: 3.5rem;
-    color: var(--accent);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
-    text-shadow: 3px 3px 0px var(--secondary);
-}
+        .mode-title {
+            font-size: 3.5rem;
+            color: var(--accent);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 0px var(--secondary);
+        }
 
-.mode-buttons {
-    display: flex;
-    gap: 2rem;
-}
+        .mode-buttons {
+            display: flex;
+            gap: 2rem;
+        }
 
-.mode-btn {
-    padding: 1rem 3rem;
-    font-size: 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-}
+        .mode-btn {
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
 
-.mode-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: 0.5s;
-}
+        .mode-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
 
-.mode-btn:hover::before {
-    left: 100%;
-}
+        .mode-btn:hover::before {
+            left: 100%;
+        }
 
-.mode-btn.stock {
-    background-color: var(--primary);
-    color: var(--dark);
-    border: 2px solid var(--dark);
-}
+        .mode-btn.stock {
+            background-color: var(--primary);
+            color: var(--dark);
+            border: 2px solid var(--dark);
+        }
 
-.mode-btn.addon {
-    background-color: var(--secondary);
-    color: var(--light);
-    border: 2px solid var(--light);
-}
+        .mode-btn.addon {
+            background-color: var(--secondary);
+            color: var(--light);
+            border: 2px solid var(--light);
+        }
 
-.catalog {
-    display: none;
-    min-height: 100vh;
-}
+        .catalog {
+            display: none;
+            min-height: 100vh;
+        }
 
-.header {
-    background-color: var(--accent);
-    padding: 1.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+        .header {
+            background-color: var(--accent);
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.header-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-.logo {
-    font-size: 2rem;
-    color: var(--light);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 0px var(--dark);
-}
+        .logo {
+            font-size: 2rem;
+            color: var(--light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px var(--dark);
+        }
 
-.search-container {
-    flex: 1;
-    max-width: 500px;
-    position: relative;
-    background-color: var(--light);
-    border-radius: 25px;
-}
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+            background-color: var(--light);
+            border-radius: 25px;
+        }
 
-.search-input {
-    width: 100%;
-    padding: 0.8rem 1rem 0.8rem 2.5rem;
-    border: 2px solid var(--primary);
-    border-radius: 25px;
-    background-color: rgba(255, 252, 242, 0.1);
-    color: var(--dark);
-    font-size: 1rem;
-    transition: all 0.3s;
-}
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            background-color: rgba(255, 252, 242, 0.1);
+            color: var(--dark);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
 
-.search-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--primary);
-}
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
 
-.categories {
-    max-width: 1400px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
+        .categories {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-.category-btn {
-    background-color: rgba(27, 153, 139, 0.2);
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: 500;
-}
+        .category-btn {
+            background-color: rgba(27, 153, 139, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
 
-.category-btn:hover, .category-btn.active {
-    background-color: var(--accent);
-    color: var(--light);
-}
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--accent);
+            color: var(--light);
+        }
 
-.peds-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
+        .peds-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
 
-.vehicle-card {
-    background-color: var(--card-bg);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s;
-    border: 1px solid var(--accent);
-}
+        .vehicle-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid var(--accent);
+        }
 
-.vehicle-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(27, 153, 139, 0.3);
-}
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(27, 153, 139, 0.3);
+        }
 
-.vehicle-image {
-    width: 100%;
-    height: 400px;
-    object-fit: contain; /* Mantiene le proporzioni senza distorcere l'immagine */
-    border-bottom: 2px solid var(--accent);
-}
+        .vehicle-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            /* Mantiene le proporzioni senza distorcere l'immagine */
+            border-bottom: 2px solid var(--accent);
+        }
 
-.vehicle-info {
-    padding: 1rem;
-}
+        .vehicle-info {
+            padding: 1rem;
+        }
 
-.vehicle-name {
-    font-size: 1.3rem;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    text-shadow: 1px 1px 0px var(--dark);
-}
+        .vehicle-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 0px var(--dark);
+        }
 
-.vehicle-details {
-    font-size: 0.9rem;
-    color: var(--light);
-    margin-bottom: 0.5rem;
-}
+        .vehicle-details {
+            font-size: 0.9rem;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
 
-.spawn-code {
-    background-color: rgba(233, 79, 55, 0.2);
-    color: var(--secondary);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 0.9rem;
-    display: inline-block;
-    margin-top: 0.5rem;
-    border: 1px solid var(--secondary);
-}
+        .spawn-code {
+            background-color: rgba(233, 79, 55, 0.2);
+            color: var(--secondary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            border: 1px solid var(--secondary);
+        }
 
-.loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(45, 48, 71, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(45, 48, 71, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-.loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid var(--accent);
-    border-top: 5px solid var(--primary);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--accent);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-.back-btn {
-    background-color: var(--secondary);
-    color: var(--light);
-    border: 2px solid var(--light);
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
+        .back-btn {
+            background-color: var(--secondary);
+            color: var(--light);
+            border: 2px solid var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-@media (max-width: 768px) {
-    .mode-title {
-        font-size: 2.5rem;
-        padding: 0 1rem;
-    }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-    .mode-buttons {
-        flex-direction: column;
-    }
+        @media (max-width: 768px) {
+            .mode-title {
+                font-size: 2.5rem;
+                padding: 0 1rem;
+            }
 
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-    }
+            .mode-buttons {
+                flex-direction: column;
+            }
 
-    .search-container {
-        width: 100%;
-    }
-}
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-container {
+                width: 100%;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="mode-selection" id="modeSelection">
         <h1 class="mode-title">PEAKVILLE peds</h1>
@@ -331,110 +346,110 @@ body {
     </div>
 
     <script>
-const stockpeds = {
-   'Male':[
+        const stockpeds = {
+            'Male': [
 
 
 
-   ],
-   'Female':[
+            ],
+            'Female': [
 
-   ],
-'Special':[
-    
-]
-}
+            ],
+            'Special': [
 
-const addonpeds = {
-      'Male':[
-{ name: 'ig_xing', image: 'assets/ig_xing.png' },
-{ name: 'ig_snupe', image: 'assets/ig_snupe.png' },
-{ name: 'sirvirini', image: 'assets/sirvirini.png' },
-{ name: 'ig_magrao', image: 'assets/ig_magrao.png' },
-{ name: 'ig_pmoney', image: 'assets/ig_pmoney.png' },
-{ name: 'ig_fingle', image: 'assets/ig_fingle.png' },
-{ name: 'ig_hatcarl', image: 'assets/ig_hatcarl.png' },
-{ name: 'ig_peanut', image: 'assets/ig_peanut.png' },
-{ name: 'ig_nottics', image: 'assets/ig_nottics.png' },
-{ name: 'ig_marlo', image: 'assets/ig_marlo.png' },
-{ name: 'ig_crane', image: 'assets/ig_crane.png' },
-{ name: 'ig_walt', image: 'assets/ig_walt.png' },
-{ name: 'z_sprinkle', image: 'assets/z_sprinkle.png' },
-{ name: 'ig_krit', image: 'assets/ig_krit.png' },
-{ name: 'k_abdul', image: 'assets/k_abdul.png' },
-{ name: 'ig_leslie', image: 'assets/ig_leslie.png' },
-{ name: 'IG_Taochen', image: 'assets/ig_taochen.png' },
-{ name: 'ig_dw', image: 'assets/ig_dw.png' },
-{ name: 'DougCanada', image: 'assets/dougcanada.png' },
-{ name: 'walter', image: 'assets/walter.png' },
-{ name: 'bobby_brown', image: 'assets/bobby_brown.png' },
-{ name: 'ig_shevy', image: 'assets/ig_shevy.png' },
-{ name: 'ig_tony', image: 'assets/ig_tony.png' },
-{ name: 'A_M_M_Taco', image: 'assets/A_M_M_Taco.png' },
-{ name: 'A_M_M_mel', image: 'assets/a_m_m_mel.png' },
-{ name: 'ig_trafficwarden_m', image: 'assets/ig_trafficwarden_m.png' },
-{ name: 'a_m_m_ktown_m', image: 'assets/a_m_m_ktown_m.png' },
-{ name: 'a_m_y_stbla_m', image: 'assets/a_m_y_stbla_m.png' },
-{ name: 'ig_gladys', image: 'assets/ig_gladys.png' },
-{ name: 'A_M_O_Eugene', image: 'assets/a_m_o_eugene.png' },
-{ name: 'G_M_Y_Gary', image: 'assets/g_m_y_gary.png' },
-{ name: 'IG_Rudi', image: 'assets/ig_rudi.png' },
-{ name: 'S_M_M_Snow', image: 'assets/s_m_m_snow.png' },
-{ name: 'S_M_M_Jacob', image: 'assets/s_m_m_jacob.png' },
-{ name: 'IG_Garrett', image: 'assets/IG_Garrett.png' },
-{ name: 'IG_speedy', image: 'assets/ig_speedy.png' },
-{ name: 'U_M_Y_Coop_Casual', image: 'assets/u_m_y_coop_casual.png' },
-{ name: 'A_M_O_Bill', image: 'assets/a_m_o_bill.png' },
-{ name: 'ig_siz', image: 'assets/ig_siz.png' },
-{ name: 'ig_huck', image: 'assets/ig_huck.png' },
-{ name: 'ig_mario', image: 'assets/ig_mario.png' },
-{ name: 'ig_nino', image: 'assets/ig_nino.png' },
-{ name: 'ig_avonB', image: 'assets/ig_avonb.png' },
-{ name: 'ig_cornwood', image: 'assets/ig_cornwood.png' },
-{ name: 'igor', image: 'assets/igor.png' },
-{ name: 's_m_m_ciasec_01', image: 'assets/s_m_m_ciasec_01.png' },
-{ name: 's_m_m_fibsec_01', image: 'assets/s_m_m_fibsec_01.png' },
-{ name: 's_m_y_sheriff_01', image: 'assets/s_m_y_sheriff_01.png' },
-{ name: 's_m_m_armoured_01', image: 'assets/s_m_m_armoured_01.png' },
-{ name: 's_m_m_armoured_02', image: 'assets/s_m_m_armoured_02.png' }
+            ]
+        }
 
-
-   ],
-   'Female':[
-   { name: 'S_F_Y_NANCY', image: 'assets/S_F_Y_NANCY.png' },
-   { name: 'IG_old_lady_cop', image: 'assets/IG_old_lady_cop.png' },
-   { name: 'IG_sherry', image: 'assets/ig_sherry.png' },
-   { name: 'IG_Tessa', image: 'assets/ig_tessa.png' },
-   { name: 'ig_petunia', image: 'assets/ig_petunia.png' },
-       { name: 'A_F_M_Trish', image: 'assets/a_f_m_trish.png' },
+        const addonpeds = {
+            'Male': [
+                { name: 'ig_xing', image: 'https://i.ibb.co/SXKpQMyD/ig-xing.png' },
+                { name: 'ig_snupe', image: 'https://i.ibb.co/LzvbzcM0/ig-snupe.png' },
+                { name: 'sirvirini', image: 'https://i.ibb.co/4wChLVVr/sirvirini.png' },
+                { name: 'ig_magrao', image: 'https://i.ibb.co/tptCcW9c/ig-magrao.png' },
+                { name: 'ig_pmoney', image: 'https://i.ibb.co/tpdRvzg3/ig-pmoney.png' },
+                { name: 'ig_fingle', image: 'https://i.ibb.co/YTcfjknw/ig-fingle.png' },
+                { name: 'ig_hatcarl', image: 'https://i.ibb.co/gMZj77z5/ig-hatcarl.png' },
+                { name: 'ig_peanut', image: 'https://i.ibb.co/Q3fBc92k/ig-peanut.png' },
+                { name: 'ig_nottics', image: 'https://i.ibb.co/jkbhtY19/ig-nottics.png' },
+                { name: 'ig_marlo', image: 'https://i.ibb.co/fdDHHS40/ig-marlo.png' },
+                { name: 'ig_crane', image: 'https://i.ibb.co/v4wkj57c/ig-crane.png' },
+                { name: 'ig_walt', image: 'https://i.ibb.co/spd6H7Hc/ig-walt.png' },
+                { name: 'z_sprinkle', image: 'https://i.ibb.co/1txPC3nZ/z-sprinkle.png' },
+                { name: 'ig_krit', image: 'https://i.ibb.co/z0DKPKt/ig-krit.png' },
+                { name: 'k_abdul', image: 'https://i.ibb.co/99VjwvDc/k-abdul.png' },
+                { name: 'ig_leslie', image: 'https://i.ibb.co/K3k8W3t/ig-leslie.png' },
+                { name: 'IG_Taochen', image: 'https://i.ibb.co/s9tJRctV/ig-taochen.png' },
+                { name: 'ig_dw', image: 'https://i.ibb.co/mCQ4q3W1/ig-dw.png' },
+                { name: 'DougCanada', image: 'https://i.ibb.co/6cp3fmpC/dougcanada.png' },
+                { name: 'walter', image: 'https://i.ibb.co/XfydP6Hv/walter.png' },
+                { name: 'bobby_brown', image: 'https://i.ibb.co/67YDLmtK/bobby-brown.png' },
+                { name: 'ig_shevy', image: 'https://i.ibb.co/k2TXmBkG/ig-shevy.png' },
+                { name: 'ig_tony', image: 'https://i.ibb.co/8JDysGL/ig-tony.png' },
+                { name: 'A_M_M_Taco', image: 'https://i.ibb.co/WNhz2t5y/A-M-M-Taco.png' },
+                { name: 'A_M_M_mel', image: 'https://i.ibb.co/5WcQ6Q8f/a-m-m-mel.png' },
+                { name: 'ig_trafficwarden_m', image: 'https://i.ibb.co/H8XPgdM/ig-trafficwarden-m.png' },
+                { name: 'a_m_m_ktown_m', image: 'https://i.ibb.co/qLNK0SFZ/a-m-m-ktown-m.png' },
+                { name: 'a_m_y_stbla_m', image: 'https://i.ibb.co/93B91Dff/a-m-y-stbla-m.png' },
+                { name: 'ig_gladys', image: 'https://i.ibb.co/sp27H0bp/ig-gladys.png' },
+                { name: 'A_M_O_Eugene', image: 'https://i.ibb.co/Z60dM9Q3/a-m-o-eugene.png' },
+                { name: 'G_M_Y_Gary', image: 'https://i.ibb.co/fVFk7DHg/g-m-y-gary.png' },
+                { name: 'IG_Rudi', image: 'https://i.ibb.co/FqBByS3S/ig-rudi.png' },
+                { name: 'S_M_M_Snow', image: 'https://i.ibb.co/zzLJrgy/s-m-m-snow.png' },
+                { name: 'S_M_M_Jacob', image: 'https://i.ibb.co/1t5fWqR7/s-m-m-jacob.png' },
+                { name: 'IG_Garrett', image: 'https://i.ibb.co/ynnG3GGB/IG-Garrett.png' },
+                { name: 'IG_speedy', image: 'https://i.ibb.co/DPNs4qJs/ig-speedy.png' },
+                { name: 'U_M_Y_Coop_Casual', image: 'https://i.ibb.co/chRHZkPr/u-m-y-coop-casual.png' },
+                { name: 'A_M_O_Bill', image: 'https://i.ibb.co/nMtdSMrd/a-m-o-bill.png' },
+                { name: 'ig_siz', image: 'https://i.ibb.co/xThTJym/ig-siz.png' },
+                { name: 'ig_huck', image: 'https://i.ibb.co/twM2YdnF/ig-huck.png' },
+                { name: 'ig_mario', image: 'https://i.ibb.co/WW7CkHQ9/ig-mario.png' },
+                { name: 'ig_nino', image: 'https://i.ibb.co/8g7jrJS2/ig-nino.png' },
+                { name: 'ig_avonB', image: 'https://i.ibb.co/gMd4yhGL/ig-avonb.png' },
+                { name: 'ig_cornwood', image: 'https://i.ibb.co/M5x78hV3/ig-cornwood.png' },
+                { name: 'igor', image: 'https://i.ibb.co/wNHMTKCF/igor.png' },
+                { name: 's_m_m_ciasec_01', image: 'https://i.ibb.co/60Jbf8HX/s-m-m-ciasec-01.png' },
+                { name: 's_m_m_fibsec_01', image: 'https://i.ibb.co/HphVx5hQ/s-m-m-fibsec-01.png' },
+                { name: 's_m_y_sheriff_01', image: 'https://i.ibb.co/HTcGWMTD/s-m-y-sheriff-01.png' },
+                { name: 's_m_m_armoured_01', image: 'https://i.ibb.co/nMQZkXZK/s-m-m-armoured-01.png' },
+                { name: 's_m_m_armoured_02', image: 'https://i.ibb.co/tp8tyBqg/s-m-m-armoured-02.png' }
 
 
+            ],
+            'Female': [
+                { name: 'S_F_Y_NANCY', image: 'https://i.ibb.co/VYBx5bQv/S-F-Y-NANCY.png' },
+                { name: 'IG_old_lady_cop', image: 'https://i.ibb.co/F45PSkC7/IG-old-lady-cop.png' },
+                { name: 'IG_sherry', image: 'https://i.ibb.co/3mnrn7q2/ig-sherry.png' },
+                { name: 'IG_Tessa', image: 'https://i.ibb.co/6RDpwL5h/ig-tessa.png' },
+                { name: 'ig_petunia', image: 'https://i.ibb.co/5g8d1pKz/ig-petunia.png' },
+                { name: 'A_F_M_Trish', image: 'https://i.ibb.co/zWK0NQw4/a-f-m-trish.png' },
 
 
 
 
 
-    
-   ],
-   'Animal':[
-{ name: 'BrnBear', image: 'assets/brnbear.png' },
-{ name: 'A_C_Pit_NP', image: 'assets/A_C_Pit_NP.png' },
-{ name: 'A_C_Racoon_01', image: 'assets/A_C_Racoon_01.png' },
-{ name: 'a_c_horse', image: 'assets/a_c_horse.png' },
-{ name: 'A_C_Panther', image: 'assets/a_c_panther.png' },
 
 
 
-    
-   ],
+            ],
+            'Animal': [
+                { name: 'BrnBear', image: 'https://i.ibb.co/TBKbybXQ/brnbear.png' },
+                { name: 'A_C_Pit_NP', image: 'https://i.ibb.co/8QbtpfT/A-C-Pit-NP.png' },
+                { name: 'A_C_Racoon_01', image: 'https://i.ibb.co/Hpq5F8YL/A-C-Racoon-01.png' },
+                { name: 'a_c_horse', image: 'https://i.ibb.co/q3gXsjSB/a-c-horse.png' },
+                { name: 'A_C_Panther', image: 'https://i.ibb.co/KxrcyGFh/a-c-panther.png' },
 
-'Special':[
-{ name: 'np_zombie', image: 'assets/np_zombie.png' },
-{ name: 'licker', image: 'assets/licker.png' },
 
-]
 
-};
+
+            ],
+
+            'Special': [
+                { name: 'np_zombie', image: 'https://i.ibb.co/5d8Kdhd/np-zombie.png' },
+                { name: 'licker', image: 'https://i.ibb.co/ccrgQhMr/licker.png' },
+
+            ]
+
+        };
 
 
         let currentMode = '';
@@ -456,7 +471,7 @@ const addonpeds = {
             document.getElementById('loading').style.display = show ? 'flex' : 'none';
         }
 
- function selectMode(mode) {
+        function selectMode(mode) {
             currentMode = mode;
             document.getElementById('modeSelection').style.display = 'none';
             document.getElementById('catalog').style.display = 'block';
@@ -470,10 +485,10 @@ const addonpeds = {
             currentMode = '';
         }
 
- function createCategoryButtons() {
+        function createCategoryButtons() {
             const container = document.getElementById('categoryButtons');
             container.innerHTML = '';
-            
+
             const allButton = document.createElement('button');
             allButton.textContent = 'Tutti';
             allButton.className = 'category-btn active';
@@ -491,38 +506,38 @@ const addonpeds = {
         }
 
         function displaypeds(category, searchTerm = '') {
-    const grid = document.getElementById('pedsGrid');
-    grid.innerHTML = '';
+            const grid = document.getElementById('pedsGrid');
+            grid.innerHTML = '';
 
-    let pedsToDisplay = [];
-    const peds = currentMode === 'stock' ? stockpeds : addonpeds;
+            let pedsToDisplay = [];
+            const peds = currentMode === 'stock' ? stockpeds : addonpeds;
 
-    if (category === 'all') {
-        Object.entries(peds).forEach(([cat, vehs]) => {
-            vehs.forEach(vehicle => {
-                pedsToDisplay.push({ ...vehicle, category: cat });
-            });
-        });
-    } else {
-        const categorypeds = peds[category];
-        categorypeds.forEach(vehicle => {
-            pedsToDisplay.push({ ...vehicle, category: category });
-        });
-    }
+            if (category === 'all') {
+                Object.entries(peds).forEach(([cat, vehs]) => {
+                    vehs.forEach(vehicle => {
+                        pedsToDisplay.push({ ...vehicle, category: cat });
+                    });
+                });
+            } else {
+                const categorypeds = peds[category];
+                categorypeds.forEach(vehicle => {
+                    pedsToDisplay.push({ ...vehicle, category: category });
+                });
+            }
 
-    if (searchTerm) {
-        pedsToDisplay = pedsToDisplay.filter(vehicle => 
-            vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            vehicle.category.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    }
+            if (searchTerm) {
+                pedsToDisplay = pedsToDisplay.filter(vehicle =>
+                    vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    vehicle.category.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
 
-    pedsToDisplay.forEach(vehicle => {
-        const card = document.createElement('div');
-        card.className = 'vehicle-card';
+            pedsToDisplay.forEach(vehicle => {
+                const card = document.createElement('div');
+                card.className = 'vehicle-card';
 
-        // Costruzione del contenuto della card
-        let cardContent = `
+                // Costruzione del contenuto della card
+                let cardContent = `
             <img class="vehicle-image" src="${vehicle.image || '/api/placeholder/400/200'}" alt="${vehicle.name}" />
             <div class="vehicle-info">
                 <div class="vehicle-name">${vehicle.name}</div>
@@ -533,22 +548,22 @@ const addonpeds = {
             </div>
         `;
 
-        card.innerHTML = cardContent;
-        grid.appendChild(card);
-    });
+                card.innerHTML = cardContent;
+                grid.appendChild(card);
+            });
 
-    // Se non ci sono peds da mostrare, visualizza un messaggio
-    if (pedsToDisplay.length === 0) {
-        const noResults = document.createElement('div');
-        noResults.style.gridColumn = '1 / -1';
-        noResults.style.textAlign = 'center';
-        noResults.style.padding = '2rem';
-        noResults.style.color = 'var(--primary)';
-        noResults.style.fontSize = '1.2rem';
-        noResults.innerHTML = 'Nessun ped trovato';
-        grid.appendChild(noResults);
-    }
-}
+            // Se non ci sono peds da mostrare, visualizza un messaggio
+            if (pedsToDisplay.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.style.gridColumn = '1 / -1';
+                noResults.style.textAlign = 'center';
+                noResults.style.padding = '2rem';
+                noResults.style.color = 'var(--primary)';
+                noResults.style.fontSize = '1.2rem';
+                noResults.innerHTML = 'Nessun ped trovato';
+                grid.appendChild(noResults);
+            }
+        }
 
 
 
@@ -569,7 +584,7 @@ const addonpeds = {
         });
 
         // Gestione degli errori di caricamento immagini
-        document.addEventListener('error', function(e) {
+        document.addEventListener('error', function (e) {
             if (e.target.tagName.toLowerCase() === 'img') {
                 e.target.src = '/api/placeholder/400/200';
             }
@@ -579,4 +594,5 @@ const addonpeds = {
         showLoading(false);
     </script>
 </body>
+
 </html>
