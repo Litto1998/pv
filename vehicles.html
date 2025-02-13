@@ -1,304 +1,318 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VEICOLI PEAKVILLE</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Rajdhani', sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
 
-:root {
-    --primary: #F7B538;         /* Giallo del logo */
-    --secondary: #E94F37;       /* Rosso del logo */
-    --accent: #1B998B;          /* Celestino/turchese del logo */
-    --dark: #2D3047;           /* Blu scuro per lo sfondo */
-    --light: #FFFCF2;          /* Bianco crema per il testo */
-    --card-bg: rgba(27, 153, 139, 0.15); /* Versione trasparente del turchese */
-}
+        :root {
+            --primary: #F7B538;
+            /* Giallo del logo */
+            --secondary: #E94F37;
+            /* Rosso del logo */
+            --accent: #1B998B;
+            /* Celestino/turchese del logo */
+            --dark: #2D3047;
+            /* Blu scuro per lo sfondo */
+            --light: #FFFCF2;
+            /* Bianco crema per il testo */
+            --card-bg: rgba(27, 153, 139, 0.15);
+            /* Versione trasparente del turchese */
+        }
 
-body {
-    background-color: var(--dark);
-    color: var(--light);
-    min-height: 100vh;
-    background-image: linear-gradient(rgba(45, 48, 71, 0.9), rgba(45, 48, 71, 0.9)), url('/api/placeholder/1920/1080');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(45, 48, 71, 0.9), rgba(45, 48, 71, 0.9)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
 
-.mode-selection {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    background-color: rgba(45, 48, 71, 0.95);
-}
+        .mode-selection {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            background-color: rgba(45, 48, 71, 0.95);
+        }
 
-.mode-title {
-    font-size: 3.5rem;
-    color: var(--accent);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
-    text-shadow: 3px 3px 0px var(--secondary);
-}
+        .mode-title {
+            font-size: 3.5rem;
+            color: var(--accent);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 0px var(--secondary);
+        }
 
-.mode-buttons {
-    display: flex;
-    gap: 2rem;
-}
+        .mode-buttons {
+            display: flex;
+            gap: 2rem;
+        }
 
-.mode-btn {
-    padding: 1rem 3rem;
-    font-size: 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-}
+        .mode-btn {
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
 
-.mode-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: 0.5s;
-}
+        .mode-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
 
-.mode-btn:hover::before {
-    left: 100%;
-}
+        .mode-btn:hover::before {
+            left: 100%;
+        }
 
-.mode-btn.stock {
-    background-color: var(--primary);
-    color: var(--dark);
-    border: 2px solid var(--dark);
-}
+        .mode-btn.stock {
+            background-color: var(--primary);
+            color: var(--dark);
+            border: 2px solid var(--dark);
+        }
 
-.mode-btn.addon {
-    background-color: var(--secondary);
-    color: var(--light);
-    border: 2px solid var(--light);
-}
+        .mode-btn.addon {
+            background-color: var(--secondary);
+            color: var(--light);
+            border: 2px solid var(--light);
+        }
 
-.catalog {
-    display: none;
-    min-height: 100vh;
-}
+        .catalog {
+            display: none;
+            min-height: 100vh;
+        }
 
-.header {
-    background-color: var(--accent);
-    padding: 1.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+        .header {
+            background-color: var(--accent);
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.header-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-.logo {
-    font-size: 2rem;
-    color: var(--light);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 0px var(--dark);
-}
+        .logo {
+            font-size: 2rem;
+            color: var(--light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px var(--dark);
+        }
 
-.search-container {
-    flex: 1;
-    max-width: 500px;
-    position: relative;
-    background-color: var(--light);
-    border-radius: 25px;
-}
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+            background-color: var(--light);
+            border-radius: 25px;
+        }
 
-.search-input {
-    width: 100%;
-    padding: 0.8rem 1rem 0.8rem 2.5rem;
-    border: 2px solid var(--primary);
-    border-radius: 25px;
-    background-color: rgba(255, 252, 242, 0.1);
-    color: var(--dark);
-    font-size: 1rem;
-    transition: all 0.3s;
-}
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            background-color: rgba(255, 252, 242, 0.1);
+            color: var(--dark);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
 
-.search-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--primary);
-}
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
 
-.categories {
-    max-width: 1400px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
+        .categories {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-.category-btn {
-    background-color: rgba(27, 153, 139, 0.2);
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: 500;
-}
+        .category-btn {
+            background-color: rgba(27, 153, 139, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
 
-.category-btn:hover, .category-btn.active {
-    background-color: var(--accent);
-    color: var(--light);
-}
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--accent);
+            color: var(--light);
+        }
 
-.vehicles-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
+        .vehicles-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
 
-.vehicle-card {
-    background-color: var(--card-bg);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s;
-    border: 1px solid var(--accent);
-}
+        .vehicle-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid var(--accent);
+        }
 
-.vehicle-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(27, 153, 139, 0.3);
-}
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(27, 153, 139, 0.3);
+        }
 
-.vehicle-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 2px solid var(--accent);
-}
+        .vehicle-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--accent);
+        }
 
-.vehicle-info {
-    padding: 1rem;
-}
+        .vehicle-info {
+            padding: 1rem;
+        }
 
-.vehicle-name {
-    font-size: 1.3rem;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    text-shadow: 1px 1px 0px var(--dark);
-}
+        .vehicle-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 0px var(--dark);
+        }
 
-.vehicle-details {
-    font-size: 0.9rem;
-    color: var(--light);
-    margin-bottom: 0.5rem;
-}
+        .vehicle-details {
+            font-size: 0.9rem;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
 
-.spawn-code {
-    background-color: rgba(233, 79, 55, 0.2);
-    color: var(--secondary);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 0.9rem;
-    display: inline-block;
-    margin-top: 0.5rem;
-    border: 1px solid var(--secondary);
-}
+        .spawn-code {
+            background-color: rgba(233, 79, 55, 0.2);
+            color: var(--secondary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            border: 1px solid var(--secondary);
+        }
 
-.loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(45, 48, 71, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(45, 48, 71, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-.loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid var(--accent);
-    border-top: 5px solid var(--primary);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--accent);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-.back-btn {
-    background-color: var(--secondary);
-    color: var(--light);
-    border: 2px solid var(--light);
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
+        .back-btn {
+            background-color: var(--secondary);
+            color: var(--light);
+            border: 2px solid var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-@media (max-width: 768px) {
-    .mode-title {
-        font-size: 2.5rem;
-        padding: 0 1rem;
-    }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-    .mode-buttons {
-        flex-direction: column;
-    }
+        @media (max-width: 768px) {
+            .mode-title {
+                font-size: 2.5rem;
+                padding: 0 1rem;
+            }
 
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-    }
+            .mode-buttons {
+                flex-direction: column;
+            }
 
-    .search-container {
-        width: 100%;
-    }
-}
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-container {
+                width: 100%;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="mode-selection" id="modeSelection">
         <h1 class="mode-title">PEAKVILLE VEHICLES</h1>
@@ -331,279 +345,283 @@ body {
     </div>
 
     <script>
-const stockVehicles = {
-    'Compatte':[
-          { name: 'Brioso2', image: 'https://i.ibb.co/bR4zfSs/images-gta-5-vehicles-compacts-main-brioso-300.webp' },
-        { name: 'Issi3', image: 'https://i.ibb.co/rwkhrQc/0ea9863b0ff61f913b77744cec5d3400.jpg' },
-        { name: 'Rhapsody', image: 'https://i.ibb.co/dgP5v4V/a035c8b6aaec131ed645170c8f588932.jpg' },
-        { name: 'Weevil', image: 'https://i.ibb.co/w6TCjB0/551dc919cf92fab2374ec7cc5fcd3cbc.jpg' },
-        ],
-    'Berline': [
-      
-        { name: 'Emperor', image: 'https://i.ibb.co/qYCzqws/43b36f2b1c192dc1b13a727fb365ba4a.jpg' },
-        { name: 'Glendale', image: 'https://i.ibb.co/1KKWJPH/b6df4a6d5f26cc1463ed0c230d808ca2.jpg' },
-        { name: 'Regina', image: 'https://i.ibb.co/PhSdpmK/89ecae6a54ffbff2518f7004b611a328.jpg' },
-        { name: 'Stafford', image: 'https://i.ibb.co/Y3BJBSm/1345af5cae54e3d24e8bbf96822656a3.jpg' },
-        { name: 'warrener2', image: 'https://i.ibb.co/jSVmkXD/9ce5830e8b0968615270c8d3e7377fd2.jpg' },
-],
-    
-    'Muscle': [
-        { name: 'Blade', image: 'https://i.ibb.co/PwwzHfz/c388adc678417c5eaf4f82297defc40b.jpg' },
-        { name: 'Brigham', image: 'https://i.ibb.co/hdDqyDJ/81029c1e7e9a2cbf7c87bec78bb0035d.jpg' },
-        { name: 'Broadway', image: 'https://i.ibb.co/S0L2KG2/20c30c03750a32dffc9a3cec5a5bb9d3.jpg' },
-        { name: 'Buccaneer', image: 'https://i.ibb.co/QQR2qMR/c7937175856209978d455b86e62574b8.jpg' },
-        { name: 'Chino', image: 'https://i.ibb.co/jrr0V17/0b89ebbc0c4ffdfe457a704fbd63bb79.jpg' },
-        { name: 'Clique', image: 'https://i.ibb.co/9cpbwWz/1ac4fda47f628764d839441c98c20a2a.jpg' },
-        { name: 'Clique2', image: 'https://i.ibb.co/ySZpp85/63bae8969e9380dd1d716c1919ee218c.jpg' },
-        { name: 'Coquette3', image: 'https://i.ibb.co/RPc8WDk/1b636d1a6fefa5831f8da41480d97c6a.jpg' },
-        { name: 'Deviant', image: 'https://i.ibb.co/t8TLDrh/cf659aef537592b0a21e6d61b269ca64.jpg' },
-    { name: 'Dominator8', image: 'https://i.ibb.co/pJY9JS3/a5ad50c571d38a1d917f67ce5e4cbbb9.jpg' },
-    { name: 'Dukes', image: 'https://i.ibb.co/cggwjCS/cb06e0bbcf9a6d7760908cf30307500c.jpg' },
-    { name: 'Ellie', image: 'https://i.ibb.co/vzz7LGS/946b18f32360e987433c4ef21bb6a3e2.jpg' },
-    { name: 'Eudora', image: 'https://i.ibb.co/sb5tJ59/104bb878b056baf1e88a7abca0e8066e.jpg' },
-    { name: 'Gauntlet3', image: 'https://i.ibb.co/sRRLHhL/773ee32e8ea693da3dc647182f4255d6.jpg' },
-    { name: 'Gauntlet5', image: 'https://i.ibb.co/Ct5Lw6d/f9eca43cace77bd24d6d02392cc2fcf6.jpg' },
-    { name: 'Greenwood', image: 'https://i.ibb.co/p0v07F9/b12cab5048c264e7193a3f1ea2663928.jpg' },
-    { name: 'Hermes', image: 'https://i.ibb.co/VB71rV6/ce014a0f3cba011b5aa1403127fb1727.jpg' },
-    { name: 'Hotknife', image: 'https://i.ibb.co/gzNgMXK/c00e209db025784239347e3c8ae706ed.jpg' },
-    { name: 'Hustler', image: 'https://i.ibb.co/Sd908My/8804e8f909a7da3ded52ec91a21c4273.jpg' },
-    { name: 'Impaler', image: 'https://i.ibb.co/QbhJ7Fz/cb61654e87b8e80c2a882c425cad9fb5.jpg' },
-    { name: 'Impaler6', image: 'https://i.ibb.co/wQj59f3/02e207923c36d71d808fbee5ab4a99df.jpg' },
-    { name: 'Nightshade', image: 'https://i.ibb.co/dfBT8Q5/2b659a00f8801616c3d1faefd6ac23ed.jpg' },
-    { name: 'Picador', image: 'https://i.ibb.co/VCqBxRd/44facb19c62aeb4658866c466a6f5e17.jpg' },
-    { name: 'Ratloader', image: 'https://i.ibb.co/84wZ6J6/f94e9cc6c7a12efe0c69679df98d0df9.jpg' },
-    { name: 'Sabregt', image: 'https://i.ibb.co/dQjfW7K/69b56b0ba5bcaeaedb68765ece77062e.jpg' },
-    { name: 'Slamvan', image: 'https://i.ibb.co/BjnF1px/a75e852f6648710ff4e3221502d91715.jpg' },
-    { name: 'Slamvan3', image: 'https://i.ibb.co/6HQd2xy/a8e4561f229801324d330eb0c129b708.jpg' },
-    { name: 'Stallion', image: 'https://i.ibb.co/sgD4LFB/4904d0f05089536d09ed18989487af98.jpg' },
-    { name: 'Tahoma', image: 'https://i.ibb.co/KD8jYWv/bfabf01fb2c9bb92d0ee559147ba1a1b.jpg' },
-    { name: 'Tampa', image: 'https://i.ibb.co/7SZ5FjF/5decfcda9d082403831a72df24aa9c78.jpg' },
-    { name: 'Tulip', image: 'https://i.ibb.co/c2ZXQV2/82c1bd3a0939adabf2b4217c6580ae22.jpg' },
-    { name: 'Tulip2', image: 'https://i.ibb.co/VCgF5gk/580bc4f7dbb8607f1da077542e3fffeb.jpg' },
-    { name: 'Vamos', image: 'https://i.ibb.co/C9v99Bb/b86e5ec4bf9ff13259ef237f0e1d16a2.jpg' },
-    { name: 'Vigero', image: 'https://i.ibb.co/vqyp80Y/e50a5491d4613da09f83a50d17be5b75.jpg' },
-    { name: 'Virgo', image: 'https://i.ibb.co/9gLtYVw/7870e17d0235f77044a84446cdf53793.jpg' },
-    { name: 'Virgo3', image: 'https://i.ibb.co/X4WGmYv/48a310a2ebba8280dcc1bd3444656df6.jpg' },
-    { name: 'Voodoo', image: 'https://i.ibb.co/5ksc16H/2e21d64db23865cdca6fa8685f99efd3.jpg' },
-    { name: 'weevil2', image: 'https://i.ibb.co/dJjZ1GyJ/67ef267280705d066c7c79cca4b1e024.jpg' },
-    { name: 'peyote2', image: 'https://i.ibb.co/xtNS31wq/7f52028e0aea8c337ac2f6e72bfedf66.jpg' },
-    { name: 'Phoenix', image: 'https://i.ibb.co/nNFN4x2Z/1684d6c87f583f8c73cb5e1a3dc73a47.jpg' },
-        
-    ],
-    'Sportive Classiche': [
-        { name: 'Btype', image: 'https://i.ibb.co/RHBbmvS/47cd7fe388d2fdb791179ef3c48b069d.jpg' },
-        { name: 'Btype2', image: 'https://i.ibb.co/JQPkPk1/3fc92bfee5c7c893c9eeb86adf284b73.jpg' },
-        { name: 'Btype3', image: 'https://i.ibb.co/CP5sqRd/c3ec48eee15c6b4e5e09cea36ee27db8.jpg' },
-        { name: 'Casco', image: 'https://i.ibb.co/Qv294qq/cffbfa1e7ebbd8158548852444d3155f.jpg' },
-    { name: 'Cheburek', image: 'https://i.ibb.co/3C3zRtp/ffa5abdb48c00d0b715e203fd5970110.jpg' },
-    { name: 'Coquette2', image: 'https://i.ibb.co/Cb7s8GR/e1b1dd3201de4a8e9158924398988a1c.jpg' },
-  { name: 'Coquette5', image: 'https://i.ibb.co/Wt32bQ2/0725c1cffd8a581eb9a738a7b51cde8d.jpg' },
-    { name: 'Dynasty', image: 'https://i.ibb.co/zVRYb8Y/8e48457eb42799c288bd252e6d466877.jpg' },
-    { name: 'Fagaloa', image: 'https://i.ibb.co/c1Kr6nZ/f266a9befaec2e78e8c19aed07ea9662.jpg' },
-    { name: 'Feltzer3', image: 'https://i.ibb.co/ZN8y0g8/16caeba19daa8f48d96a62e2facf3662.jpg' },
-    { name: 'GT500', image: 'https://i.ibb.co/j5mD6Bj/7b8e2f1c957bf4e4daf551a863743470.jpg' },
-    { name: 'Mamba', image: 'https://i.ibb.co/qjhYTqx/3f20a676700da328ea7632082f2beb8f.jpg' },
-    { name: 'Manana', image: 'https://i.ibb.co/PCBX3WB/569ecf2e8e8c36f0e044fd6017d54d5d.jpg' },
-    { name: 'Michelli', image: 'https://i.ibb.co/bsjv9kq/4300a845c6a5b78e85be4ff094cd2c34.jpg' },
-    { name: 'Monroe', image: 'https://i.ibb.co/k5xJdKn/fc9fd322616ca1dd6d21b150d835f2e8.jpg' },
-    { name: 'Peyote', image: 'https://i.ibb.co/GtZ8ts8/46d06ebc7442f843c140ffb97a9b41bd.jpg' },
-    { name: 'Rapidgt3', image: 'https://i.ibb.co/VjNgpNr/40d2bc05ee99cd9f3c21b236be4dedf0.jpg' },
-    { name: 'Retinue', image: 'https://i.ibb.co/qB9F9hH/7a39c2efd494f583d2a2c961e1c832ab.jpg' },
-    { name: 'Savestra', image: 'https://i.ibb.co/jWt3S7R/ef30e44906df118895548af408f8e76b.jpg' },
-    { name: 'Stinger', image: 'https://i.ibb.co/qRKxHgr/d8159b27ec2dedaf413876587d8669a7.jpg' },
-    { name: 'Swinger', image: 'https://i.ibb.co/23x2Sgw/2edbe62476081a6748ce398854d0504b.jpg' },
-    { name: 'Torero', image: 'https://i.ibb.co/Y7Krq3W/82028c7e552b59b486a953377568db8a.jpg' },
-    { name: 'Tornado', image: 'https://i.ibb.co/DDMW48t/dd71f6ac91f93c6c16eaf4fbbb1c3948.jpg' },
-    { name: 'Tornado4', image: 'https://i.ibb.co/DtFWYmg/75b122f9de4379cd5e48c710491bed52.jpg' },
-    { name: 'Viseris', image: 'https://i.ibb.co/KyRKLmZ/58b643ca12764427411342363738fc11.jpg' },
-    { name: 'z190', image: 'https://i.ibb.co/kKp7k28/15bdda7a7065a07747469a7adf3b9c90.jpg' },
-     { name: 'pigalle', image: 'https://i.ibb.co/Q3Xkx37R/c3b4c1d996c96134453341c5dc5255dc.jpg' },
-   
-    ],
-    'Sportive':[
-    { name: 'tropos', image: 'https://i.ibb.co/WGjFP8t/479009d562ea90391ac44129bc03c96f.jpg' },
-    { name: 'veto', image: 'https://i.ibb.co/TbP0vTq/69b5a110de5256fefef24a7c64063cc1.jpg' },
-     { name: 'comet3', image: 'https://i.ibb.co/ZzLWPGVD/ddeb20a2b62fd2d2d7e45805a6aa6375.jpg' },
-    
-    ],
+        const stockVehicles = {
+            'Compatte': [
+                { name: 'Brioso2', image: 'https://i.ibb.co/bR4zfSs/images-gta-5-vehicles-compacts-main-brioso-300.webp' },
+                { name: 'Issi3', image: 'https://i.ibb.co/rwkhrQc/0ea9863b0ff61f913b77744cec5d3400.jpg' },
+                { name: 'Rhapsody', image: 'https://i.ibb.co/dgP5v4V/a035c8b6aaec131ed645170c8f588932.jpg' },
+                { name: 'Weevil', image: 'https://i.ibb.co/w6TCjB0/551dc919cf92fab2374ec7cc5fcd3cbc.jpg' },
+            ],
+            'Berline': [
 
-    'Moto': [
-    { name: 'Avarus', image: 'https://i.ibb.co/G5NkfnH/82ce2ae3ed51e44507a95f5ac9549bcc.jpg' },
-    { name: 'Cliffhanger', image: 'https://i.ibb.co/b634s8m/9e4b5372d911d4024e1768cc89449699.jpg' },
-    { name: 'Daemon2', image: 'https://i.ibb.co/0Yr4tsw/7db85df3a18dde52e8dfc3ca6c4b9829.jpg' },
-    { name: 'Enduro', image: 'https://i.ibb.co/R0mDzjG/f2d2741969000e6bda655a8fefa86930.jpg' },
-    { name: 'Esskey', image: 'https://i.ibb.co/mCvhTHb/8cfcc847bd7044a7d19dae8bb031c627.jpg' },
-    { name: 'Faggio', image: 'https://i.ibb.co/wszNMFH/490d53928ed54a3b2c656681ab98159c.jpg' },
-    { name: 'Faggio3', image: 'https://i.ibb.co/N9FNYs6/e41dc1c0ffe80722833980303c2b1f6c.jpg' },
-    { name: 'Wolfsbane', image: 'https://i.ibb.co/xYRJBxJ/3b87bdec34d143f28a8806e55f1de00e.jpg' },
-        { name: 'chimera', image: 'https://i.ibb.co/kg0SJDs1/chimera.jpg' },
+                { name: 'Emperor', image: 'https://i.ibb.co/qYCzqws/43b36f2b1c192dc1b13a727fb365ba4a.jpg' },
+                { name: 'Glendale', image: 'https://i.ibb.co/1KKWJPH/b6df4a6d5f26cc1463ed0c230d808ca2.jpg' },
+                { name: 'Regina', image: 'https://i.ibb.co/PhSdpmK/89ecae6a54ffbff2518f7004b611a328.jpg' },
+                { name: 'Stafford', image: 'https://i.ibb.co/Y3BJBSm/1345af5cae54e3d24e8bbf96822656a3.jpg' },
+                { name: 'warrener2', image: 'https://i.ibb.co/jSVmkXD/9ce5830e8b0968615270c8d3e7377fd2.jpg' },
+            ],
+
+            'Muscle': [
+                { name: 'Blade', image: 'https://i.ibb.co/PwwzHfz/c388adc678417c5eaf4f82297defc40b.jpg' },
+                { name: 'Brigham', image: 'https://i.ibb.co/hdDqyDJ/81029c1e7e9a2cbf7c87bec78bb0035d.jpg' },
+                { name: 'Broadway', image: 'https://i.ibb.co/S0L2KG2/20c30c03750a32dffc9a3cec5a5bb9d3.jpg' },
+                { name: 'Buccaneer', image: 'https://i.ibb.co/QQR2qMR/c7937175856209978d455b86e62574b8.jpg' },
+                { name: 'Chino', image: 'https://i.ibb.co/jrr0V17/0b89ebbc0c4ffdfe457a704fbd63bb79.jpg' },
+                { name: 'Clique', image: 'https://i.ibb.co/9cpbwWz/1ac4fda47f628764d839441c98c20a2a.jpg' },
+                { name: 'Clique2', image: 'https://i.ibb.co/ySZpp85/63bae8969e9380dd1d716c1919ee218c.jpg' },
+                { name: 'Coquette3', image: 'https://i.ibb.co/RPc8WDk/1b636d1a6fefa5831f8da41480d97c6a.jpg' },
+                { name: 'Deviant', image: 'https://i.ibb.co/t8TLDrh/cf659aef537592b0a21e6d61b269ca64.jpg' },
+                { name: 'Dominator8', image: 'https://i.ibb.co/pJY9JS3/a5ad50c571d38a1d917f67ce5e4cbbb9.jpg' },
+                { name: 'Dukes', image: 'https://i.ibb.co/cggwjCS/cb06e0bbcf9a6d7760908cf30307500c.jpg' },
+                { name: 'Ellie', image: 'https://i.ibb.co/vzz7LGS/946b18f32360e987433c4ef21bb6a3e2.jpg' },
+                { name: 'Eudora', image: 'https://i.ibb.co/sb5tJ59/104bb878b056baf1e88a7abca0e8066e.jpg' },
+                { name: 'Gauntlet3', image: 'https://i.ibb.co/sRRLHhL/773ee32e8ea693da3dc647182f4255d6.jpg' },
+                { name: 'Gauntlet5', image: 'https://i.ibb.co/Ct5Lw6d/f9eca43cace77bd24d6d02392cc2fcf6.jpg' },
+                { name: 'Greenwood', image: 'https://i.ibb.co/p0v07F9/b12cab5048c264e7193a3f1ea2663928.jpg' },
+                { name: 'Hermes', image: 'https://i.ibb.co/VB71rV6/ce014a0f3cba011b5aa1403127fb1727.jpg' },
+                { name: 'Hotknife', image: 'https://i.ibb.co/gzNgMXK/c00e209db025784239347e3c8ae706ed.jpg' },
+                { name: 'Hustler', image: 'https://i.ibb.co/Sd908My/8804e8f909a7da3ded52ec91a21c4273.jpg' },
+                { name: 'Impaler', image: 'https://i.ibb.co/QbhJ7Fz/cb61654e87b8e80c2a882c425cad9fb5.jpg' },
+                { name: 'Impaler6', image: 'https://i.ibb.co/wQj59f3/02e207923c36d71d808fbee5ab4a99df.jpg' },
+                { name: 'Nightshade', image: 'https://i.ibb.co/dfBT8Q5/2b659a00f8801616c3d1faefd6ac23ed.jpg' },
+                { name: 'Picador', image: 'https://i.ibb.co/VCqBxRd/44facb19c62aeb4658866c466a6f5e17.jpg' },
+                { name: 'Ratloader', image: 'https://i.ibb.co/84wZ6J6/f94e9cc6c7a12efe0c69679df98d0df9.jpg' },
+                { name: 'Sabregt', image: 'https://i.ibb.co/dQjfW7K/69b56b0ba5bcaeaedb68765ece77062e.jpg' },
+                { name: 'Slamvan', image: 'https://i.ibb.co/BjnF1px/a75e852f6648710ff4e3221502d91715.jpg' },
+                { name: 'Slamvan3', image: 'https://i.ibb.co/6HQd2xy/a8e4561f229801324d330eb0c129b708.jpg' },
+                { name: 'Stallion', image: 'https://i.ibb.co/sgD4LFB/4904d0f05089536d09ed18989487af98.jpg' },
+                { name: 'Tahoma', image: 'https://i.ibb.co/KD8jYWv/bfabf01fb2c9bb92d0ee559147ba1a1b.jpg' },
+                { name: 'Tampa', image: 'https://i.ibb.co/7SZ5FjF/5decfcda9d082403831a72df24aa9c78.jpg' },
+                { name: 'Tulip', image: 'https://i.ibb.co/c2ZXQV2/82c1bd3a0939adabf2b4217c6580ae22.jpg' },
+                { name: 'Tulip2', image: 'https://i.ibb.co/VCgF5gk/580bc4f7dbb8607f1da077542e3fffeb.jpg' },
+                { name: 'Vamos', image: 'https://i.ibb.co/C9v99Bb/b86e5ec4bf9ff13259ef237f0e1d16a2.jpg' },
+                { name: 'Vigero', image: 'https://i.ibb.co/vqyp80Y/e50a5491d4613da09f83a50d17be5b75.jpg' },
+                { name: 'Virgo', image: 'https://i.ibb.co/9gLtYVw/7870e17d0235f77044a84446cdf53793.jpg' },
+                { name: 'Virgo3', image: 'https://i.ibb.co/X4WGmYv/48a310a2ebba8280dcc1bd3444656df6.jpg' },
+                { name: 'Voodoo', image: 'https://i.ibb.co/5ksc16H/2e21d64db23865cdca6fa8685f99efd3.jpg' },
+                { name: 'weevil2', image: 'https://i.ibb.co/dJjZ1GyJ/67ef267280705d066c7c79cca4b1e024.jpg' },
+                { name: 'peyote2', image: 'https://i.ibb.co/xtNS31wq/7f52028e0aea8c337ac2f6e72bfedf66.jpg' },
+                { name: 'Phoenix', image: 'https://i.ibb.co/nNFN4x2Z/1684d6c87f583f8c73cb5e1a3dc73a47.jpg' },
+
+            ],
+            'Sportive Classiche': [
+                { name: 'Btype', image: 'https://i.ibb.co/RHBbmvS/47cd7fe388d2fdb791179ef3c48b069d.jpg' },
+                { name: 'Btype2', image: 'https://i.ibb.co/JQPkPk1/3fc92bfee5c7c893c9eeb86adf284b73.jpg' },
+                { name: 'Btype3', image: 'https://i.ibb.co/CP5sqRd/c3ec48eee15c6b4e5e09cea36ee27db8.jpg' },
+                { name: 'Casco', image: 'https://i.ibb.co/Qv294qq/cffbfa1e7ebbd8158548852444d3155f.jpg' },
+                { name: 'Cheburek', image: 'https://i.ibb.co/3C3zRtp/ffa5abdb48c00d0b715e203fd5970110.jpg' },
+                { name: 'Coquette2', image: 'https://i.ibb.co/Cb7s8GR/e1b1dd3201de4a8e9158924398988a1c.jpg' },
+                { name: 'Coquette5', image: 'https://i.ibb.co/Wt32bQ2/0725c1cffd8a581eb9a738a7b51cde8d.jpg' },
+                { name: 'Dynasty', image: 'https://i.ibb.co/zVRYb8Y/8e48457eb42799c288bd252e6d466877.jpg' },
+                { name: 'Fagaloa', image: 'https://i.ibb.co/c1Kr6nZ/f266a9befaec2e78e8c19aed07ea9662.jpg' },
+                { name: 'Feltzer3', image: 'https://i.ibb.co/ZN8y0g8/16caeba19daa8f48d96a62e2facf3662.jpg' },
+                { name: 'GT500', image: 'https://i.ibb.co/j5mD6Bj/7b8e2f1c957bf4e4daf551a863743470.jpg' },
+                { name: 'Mamba', image: 'https://i.ibb.co/qjhYTqx/3f20a676700da328ea7632082f2beb8f.jpg' },
+                { name: 'Manana', image: 'https://i.ibb.co/PCBX3WB/569ecf2e8e8c36f0e044fd6017d54d5d.jpg' },
+                { name: 'Michelli', image: 'https://i.ibb.co/bsjv9kq/4300a845c6a5b78e85be4ff094cd2c34.jpg' },
+                { name: 'Monroe', image: 'https://i.ibb.co/k5xJdKn/fc9fd322616ca1dd6d21b150d835f2e8.jpg' },
+                { name: 'Peyote', image: 'https://i.ibb.co/GtZ8ts8/46d06ebc7442f843c140ffb97a9b41bd.jpg' },
+                { name: 'Rapidgt3', image: 'https://i.ibb.co/VjNgpNr/40d2bc05ee99cd9f3c21b236be4dedf0.jpg' },
+                { name: 'Retinue', image: 'https://i.ibb.co/qB9F9hH/7a39c2efd494f583d2a2c961e1c832ab.jpg' },
+                { name: 'Savestra', image: 'https://i.ibb.co/jWt3S7R/ef30e44906df118895548af408f8e76b.jpg' },
+                { name: 'Stinger', image: 'https://i.ibb.co/qRKxHgr/d8159b27ec2dedaf413876587d8669a7.jpg' },
+                { name: 'Swinger', image: 'https://i.ibb.co/23x2Sgw/2edbe62476081a6748ce398854d0504b.jpg' },
+                { name: 'Torero', image: 'https://i.ibb.co/Y7Krq3W/82028c7e552b59b486a953377568db8a.jpg' },
+                { name: 'Tornado', image: 'https://i.ibb.co/DDMW48t/dd71f6ac91f93c6c16eaf4fbbb1c3948.jpg' },
+                { name: 'Tornado4', image: 'https://i.ibb.co/DtFWYmg/75b122f9de4379cd5e48c710491bed52.jpg' },
+                { name: 'Viseris', image: 'https://i.ibb.co/KyRKLmZ/58b643ca12764427411342363738fc11.jpg' },
+                { name: 'z190', image: 'https://i.ibb.co/kKp7k28/15bdda7a7065a07747469a7adf3b9c90.jpg' },
+                { name: 'pigalle', image: 'https://i.ibb.co/Q3Xkx37R/c3b4c1d996c96134453341c5dc5255dc.jpg' },
+
+            ],
+            'Sportive': [
+                { name: 'tropos', image: 'https://i.ibb.co/WGjFP8t/479009d562ea90391ac44129bc03c96f.jpg' },
+                { name: 'veto', image: 'https://i.ibb.co/TbP0vTq/69b5a110de5256fefef24a7c64063cc1.jpg' },
+                { name: 'comet3', image: 'https://i.ibb.co/ZzLWPGVD/ddeb20a2b62fd2d2d7e45805a6aa6375.jpg' },
+
+            ],
+
+            'Moto': [
+                { name: 'Avarus', image: 'https://i.ibb.co/G5NkfnH/82ce2ae3ed51e44507a95f5ac9549bcc.jpg' },
+                { name: 'Cliffhanger', image: 'https://i.ibb.co/b634s8m/9e4b5372d911d4024e1768cc89449699.jpg' },
+                { name: 'Daemon2', image: 'https://i.ibb.co/0Yr4tsw/7db85df3a18dde52e8dfc3ca6c4b9829.jpg' },
+                { name: 'Enduro', image: 'https://i.ibb.co/R0mDzjG/f2d2741969000e6bda655a8fefa86930.jpg' },
+                { name: 'Esskey', image: 'https://i.ibb.co/mCvhTHb/8cfcc847bd7044a7d19dae8bb031c627.jpg' },
+                { name: 'Faggio', image: 'https://i.ibb.co/wszNMFH/490d53928ed54a3b2c656681ab98159c.jpg' },
+                { name: 'Faggio3', image: 'https://i.ibb.co/N9FNYs6/e41dc1c0ffe80722833980303c2b1f6c.jpg' },
+                { name: 'Wolfsbane', image: 'https://i.ibb.co/xYRJBxJ/3b87bdec34d143f28a8806e55f1de00e.jpg' },
+                { name: 'chimera', image: 'https://i.ibb.co/kg0SJDs1/chimera.jpg' },
                 { name: 'zombieb', image: 'https://i.ibb.co/bfY35fW/zombie-chopper.jpg' },
-        { name: 'zombiea', image: 'https://i.ibb.co/S4s0yCT2/zombie-bobber.jpg' },
-        { name: 'ratbike', image: 'https://i.ibb.co/v6KSY2m7/rat-bike.jpg' },
-        { name: 'Hexer', image: 'https://i.ibb.co/xtfQYzkJ/hexer.jpg' },
-
-    
-],
-'Fuoristrada': [
-    { name: 'Injection', image: 'https://i.ibb.co/CvSw1b3/f272633cca7f5146d7ed215eea4d94ae.jpg' },
-    { name: 'Bodhi2', image: 'https://i.ibb.co/HDPs9Ctk/ea0471-hhi.webp' },
-    { name: 'Dloader', image: 'https://i.ibb.co/DLS2scB/245c1c82a82c476de81d232527ff05c4.jpg' },
-    { name: 'Dune', image: 'https://i.ibb.co/Sc0WZRb/b82b384f9f72c15da475e99f87495114.jpg' },
-    { name: 'Dune2', image: 'https://i.ibb.co/y4mrz8P/219fe9030de416bc0475141c0a85f0b7.jpg' },
-    { name: 'Kalahari', image: 'https://i.ibb.co/FgcjDqg/d6798590f9068fa1d2968283896186e3.jpg' },
-    { name: 'RancherXL', image: 'https://i.ibb.co/G2fXfJR/0b3787ab425c0d7a139b249dcf6584bd.jpg' },
-    { name: 'Rebel', image: 'https://i.ibb.co/FWKc2Jg/7bbd36aa5949a7532da243cb738674bc.jpg' },
-    { name: 'Rebel2', image: 'https://i.ibb.co/qYjmCjB/f615e1483cea9d217082b873685d5d9d.jpg' },
-    { name: 'Winky', image: 'https://i.ibb.co/0j6WsM4/188eb4f30b795fca6504fd43a58e0dd4.jpg' },
-    { name: 'Yosemite3', image: 'https://i.ibb.co/QFz9Sk8/f1db84ddcf79c81ed9988c9b61fea8d4.jpg' }
+                { name: 'zombiea', image: 'https://i.ibb.co/S4s0yCT2/zombie-bobber.jpg' },
+                { name: 'ratbike', image: 'https://i.ibb.co/v6KSY2m7/rat-bike.jpg' },
+                { name: 'Hexer', image: 'https://i.ibb.co/xtfQYzkJ/hexer.jpg' },
 
 
-],
-'Utilità': [
-    { name: 'Caddy2', image: 'https://i.ibb.co/YD9vDTY/5951fd3c2ced06e512439d7317d91390.jpg' },
-    { name: 'Caddy3', image: 'https://i.ibb.co/P9XnNhG/221c103aae10881a2c56a540758a6f99.jpg' },
-    { name: 'Scrap', image: 'https://i.ibb.co/NSV0c9t/0f20ffcfff3450076e543005c79f6f32.jpg' },
-    { name: 'Towtruck2', image: 'https://i.ibb.co/HY6WzFH/efc8696f47a8079738b403b3962d7c75.jpg' },
-    { name: 'Tractor', image: 'https://i.ibb.co/ccYW9J0/afae1081be25d13f9a43dc6b1012eebb.jpg' },
-    { name: 'Journey', image: 'https://i.ibb.co/5Lhq2X6/acf9760205917e8dc2858669166080c5.jpg' },
-    { name: 'Journey2', image: 'https://i.ibb.co/WfCDbHt/823c56c6146cbe3a5303e508cf36e451.jpg' },
-    { name: 'Surfer3', image: 'https://i.ibb.co/cNfHXqz/efc35e9d62024f11dfe0faf35cda0d6f.jpg' },
-    { name: 'Youga2', image: 'https://i.ibb.co/LvXQtL9/b8d49d6986fa3c02153ff1185af6fdf0.jpg' },
-    { name: 'Forklift', image: 'https://i.ibb.co/RyWTSrM/0a7b2defc41a24e5f0df76dccc1b445f.jpg' }
-],
-'Bici': [
-{ name: 'BMX', image: 'https://i.ibb.co/PTTrq77/4596bd7f7aab3d7e1d537ea929b239e4.jpg'},
-{ name: 'Cruiser', image: 'https://i.ibb.co/Vjkw8YW/9ba8ac906e802139d944306a9b93c9f1.jpg' },
-],
-'Aerei':[
-{ name: 'Streamer216', image: 'https://i.ibb.co/LrjyXzX/a298f3f38bff95181d76ca1dd74b7a1b.jpg' },
-{ name: 'Dodo', image: 'https://i.ibb.co/vQw3jKs/7c7a7664f82499e961b5bcd312f14e6d.jpg' },
-    { name: 'microlight', image: 'https://i.ibb.co/1trgNqqZ/05208be74d4888be828e2dd8414896e6.jpg' },
-    { name: 'velum2', image: 'https://i.ibb.co/yF4qDJfM/38946ed60b0368f1a35b681f4813cebd.jpg' },
-    { name: 'mammatus', image: 'https://i.ibb.co/fVxrVtgT/aa47acc71a50f1c4c9954890781c2201.jpg' },
-    { name: 'duster', image: 'https://i.ibb.co/wZn9Lpvx/471d3f292ef21a4ca912f423749eb519.jpg' },
-    { name: 'stunt', image: 'https://i.ibb.co/BHj46kqR/e75f511fa836738eafea1897f96558c6.jpg' },
-    { name: 'cuban800', image: 'https://i.ibb.co/7xn2nvgN/bc4275e5138d4a8cd670314ee9137299.jpg' },
-   
-],
-
-'Elicotteri' : [
-{ name: 'Savage', image: 'https://i.ibb.co/FBJ8sjZ/3c45bc159ba136097ccc1fea6dcac164.jpg' },
-{ name: 'Valkyrie', image: 'https://i.ibb.co/ThnbWcM/9f9a5b13295886137132730cd38b1349.jpg' },
-    { name: ' seasparrow2', image: 'https://i.ibb.co/LDj0j30Q/images-gta-5-vehicles-helicopters-main-sparrow.webp' },
-
-],
-    
-    
-'Barche': [
-{ name: 'Dinghy5', image: 'https://i.ibb.co/swJzbC1/c0360485c4180830f179bfb6e90767e7.jpg' },
-{ name: 'Patrolboat', image: 'https://i.ibb.co/JzxFSpB/9f1b0bb14545cef17d49d58fa5e81710.jpg' },
-{ name: 'Speeder2', image: 'https://i.ibb.co/KmHFcQD/ebb70b34e017ff4aa91ab3b1730ae1d2.jpg' },
-{ name: 'Toro2', image: 'https://i.ibb.co/YkqnHzn/a9c8fe014d47a794b9bb9d8d5327a409.jpg' },
-{ name: 'Marquis', image: 'https://i.ibb.co/wKvT38j/f0fbc95f799118a6ba6d4cb74cf0fd24.jpg' },
-{ name: 'Tug', image: 'https://i.ibb.co/0tPPX7c/1c39bd3fc4c2fda998e63252ff4678a2.jpg' }
-],
-'Emergenza': [
-{ name: 'Polimpaler6', image: 'https://i.ibb.co/9Nq53Kr/89bc25acadbfc3161f4648c80ed2d3a2.jpg' },
-{ name: 'Polgreenwood', image: 'https://i.ibb.co/prJVNR7/6f69fd9cc8586140a62e29e205b810c8.jpg' },
-],
-'Militare': [
-{ name: 'Vetir', image: 'https://i.ibb.co/4MLHnn9/9ef6bb82946c436292f96c9c4159738d.jpg' },
-{ name: 'Chernobog', image: 'https://i.ibb.co/YQs817C/ca176fc25b6a244567f029f5abe6dfdb.jpg' }
-]
-}
-
-const addonVehicles = {
-    'Militare': [
-          { name: 'Ah1g', image: 'https://img.gta5-mods.com/q95/images/ah-1g-cobra-add-on/a59e88-0.jpg' },
-         { name: 'uh1raaf', image: 'https://i.ibb.co/8LNgzYJP/immagine.png' },
-         { name: 'uh1raaf2', image: 'https://i.ibb.co/kgx6ZpFN/immagine.png' },
-          { name: 'uralcmd', image: 'https://img.gta5-mods.com/q95/images/ural-4320-pack-add-on-fivem/d8e2e6-Screenshot_2023-10-02_185332-fotor-bg-remover-20231002185359.png' },
-      { name: 'uralwood', image: 'https://img.gta5-mods.com/q95/images/ural-4320-pack-add-on-fivem/d8e2e6-Screenshot_2023-10-09_032047.png' },
- { name: 'mi8cargo', image: 'https://img.gta5-mods.com/q95/images/mil-mi-8-cargo-trooptransport-add-on-fivem/c50047-2023-09-30_02_55_34.jpg' },
- ],
-    'Elicotteri': [
-         { name: 'uh1nasa', image: 'https://img.gta5-mods.com/q95/images/uh-1-huey-civilian-livery-pack/28c688-2.png' },
-
-    ],
-        'Emergenza': [
-        { name: 'ambulance', image: 'https://i.ibb.co/zH4Wvgnr/immagine.png' },
-        { name: 'firetruk', image: 'https://i.ibb.co/s8yNqxS/immagine.png' },
-               { name: 'cadge', image: 'https://i.ibb.co/tPK1LFxc/immagine.png' },
-               { name: 'lcambre', image: 'https://i.ibb.co/Gf1hrvnk/immagine.png' },
-               { name: 'lcemsranch', image: 'https://i.ibb.co/7NtdY8st/immagine.png' },
-        
-
-    ],
-    'Muscle':[
-{ name: 'DomC', image: 'https://img.gta5-mods.com/q95/images/vapid-dominator-classic/49881b-0.jpg' },
-{ name: 'GauntletC', image: 'https://img.gta5-mods.com/q95/images/bravado-gauntlet-classic-add-on-liveries-template/9ac6d5-1.jpg' },
-{ name: 'Paradox', image: 'https://img.gta5-mods.com/q95/images/willard-paradox-add-on-tuning-lods-shards/134d3e-enb2022_10_16_16_01_26_19.png' },
-{ name: 'Ratloader3', image: 'https://img.gta5-mods.com/q95/images/restored-bravado-rat-loader/6101af-GTA5%202017-06-20%2023-07-04-514.jpg' },
-{ name: 'Tannen', image: 'https://img.gta5-mods.com/q85-w800/images/vapid-tannen-add-on-lods-tuning-2-cars/1af11f-tannentop.png' },
-{ name: 'Starlett', image: 'https://img.gta5-mods.com/q95/images/bordeaux-starlette-add-on/73ae3d-starlette7-min.png' },
-{ name: 'Vulture', image: 'https://img.gta5-mods.com/q95/images/bravado-vulture-add-on-tuning-liveries-sounds/06b417-1-min.png' },
-        
-                        { name: 'vodoo4', image: 'https://img.gta5-mods.com/q95/images/declasse-voodoo-4-door-add-on-replace/a22ab5-GTA5%202017-05-08%2015-10-12-626.jpg' },
+            ],
+            'Fuoristrada': [
+                { name: 'Injection', image: 'https://i.ibb.co/CvSw1b3/f272633cca7f5146d7ed215eea4d94ae.jpg' },
+                { name: 'Bodhi2', image: 'https://i.ibb.co/HDPs9Ctk/ea0471-hhi.webp' },
+                { name: 'Dloader', image: 'https://i.ibb.co/DLS2scB/245c1c82a82c476de81d232527ff05c4.jpg' },
+                { name: 'Dune', image: 'https://i.ibb.co/Sc0WZRb/b82b384f9f72c15da475e99f87495114.jpg' },
+                { name: 'Dune2', image: 'https://i.ibb.co/y4mrz8P/219fe9030de416bc0475141c0a85f0b7.jpg' },
+                { name: 'Kalahari', image: 'https://i.ibb.co/FgcjDqg/d6798590f9068fa1d2968283896186e3.jpg' },
+                { name: 'RancherXL', image: 'https://i.ibb.co/G2fXfJR/0b3787ab425c0d7a139b249dcf6584bd.jpg' },
+                { name: 'Rebel', image: 'https://i.ibb.co/FWKc2Jg/7bbd36aa5949a7532da243cb738674bc.jpg' },
+                { name: 'Rebel2', image: 'https://i.ibb.co/qYjmCjB/f615e1483cea9d217082b873685d5d9d.jpg' },
+                { name: 'Winky', image: 'https://i.ibb.co/0j6WsM4/188eb4f30b795fca6504fd43a58e0dd4.jpg' },
+                { name: 'Yosemite3', image: 'https://i.ibb.co/QFz9Sk8/f1db84ddcf79c81ed9988c9b61fea8d4.jpg' }
 
 
-    ],
-'Sportive Classiche':[
-{ name: 'Elena', image: 'https://img.gta5-mods.com/q95/images/ocelot-elena-add-on-unlocked/5ed4db-untitled.101_1920.png' },
-{ name: 'Euphoria', image: 'https://img.gta5-mods.com/q95/images/ocelot-euphoria-add-on-tuning-liveries/e01410-0.png' },
-{ name: 'LynxMK1', image: 'https://img.gta5-mods.com/q95/images/ocelot-lynx-mk-i-add-on-tuning-liveries/cf1296-nasty2.png' },
-{ name: 'SancyB4', image: 'https://img.gta5-mods.com/q95/images/bordeaux-sancy-b4-add-on-tuning-liveries-sounds/6a7334-0-min.png' },
-    { name: 'Cavallos', image: 'https://i.ibb.co/609XqPBb/immagine.png' },
+            ],
+            'Utilità': [
+                { name: 'Caddy2', image: 'https://i.ibb.co/YD9vDTY/5951fd3c2ced06e512439d7317d91390.jpg' },
+                { name: 'Caddy3', image: 'https://i.ibb.co/P9XnNhG/221c103aae10881a2c56a540758a6f99.jpg' },
+                { name: 'Scrap', image: 'https://i.ibb.co/NSV0c9t/0f20ffcfff3450076e543005c79f6f32.jpg' },
+                { name: 'Towtruck2', image: 'https://i.ibb.co/HY6WzFH/efc8696f47a8079738b403b3962d7c75.jpg' },
+                { name: 'Tractor', image: 'https://i.ibb.co/ccYW9J0/afae1081be25d13f9a43dc6b1012eebb.jpg' },
+                { name: 'Journey', image: 'https://i.ibb.co/5Lhq2X6/acf9760205917e8dc2858669166080c5.jpg' },
+                { name: 'Journey2', image: 'https://i.ibb.co/WfCDbHt/823c56c6146cbe3a5303e508cf36e451.jpg' },
+                { name: 'Surfer3', image: 'https://i.ibb.co/cNfHXqz/efc35e9d62024f11dfe0faf35cda0d6f.jpg' },
+                { name: 'Youga2', image: 'https://i.ibb.co/LvXQtL9/b8d49d6986fa3c02153ff1185af6fdf0.jpg' },
+                { name: 'Forklift', image: 'https://i.ibb.co/RyWTSrM/0a7b2defc41a24e5f0df76dccc1b445f.jpg' }
+            ],
+            'Bici': [
+                { name: 'BMX', image: 'https://i.ibb.co/PTTrq77/4596bd7f7aab3d7e1d537ea929b239e4.jpg' },
+                { name: 'Cruiser', image: 'https://i.ibb.co/Vjkw8YW/9ba8ac906e802139d944306a9b93c9f1.jpg' },
+            ],
+            'Aerei': [
+                { name: 'Streamer216', image: 'https://i.ibb.co/LrjyXzX/a298f3f38bff95181d76ca1dd74b7a1b.jpg' },
+                { name: 'Dodo', image: 'https://i.ibb.co/vQw3jKs/7c7a7664f82499e961b5bcd312f14e6d.jpg' },
+                { name: 'microlight', image: 'https://i.ibb.co/1trgNqqZ/05208be74d4888be828e2dd8414896e6.jpg' },
+                { name: 'velum2', image: 'https://i.ibb.co/yF4qDJfM/38946ed60b0368f1a35b681f4813cebd.jpg' },
+                { name: 'mammatus', image: 'https://i.ibb.co/fVxrVtgT/aa47acc71a50f1c4c9954890781c2201.jpg' },
+                { name: 'duster', image: 'https://i.ibb.co/wZn9Lpvx/471d3f292ef21a4ca912f423749eb519.jpg' },
+                { name: 'stunt', image: 'https://i.ibb.co/BHj46kqR/e75f511fa836738eafea1897f96558c6.jpg' },
+                { name: 'cuban800', image: 'https://i.ibb.co/7xn2nvgN/bc4275e5138d4a8cd670314ee9137299.jpg' },
+
+            ],
+
+            'Elicotteri': [
+                { name: 'Savage', image: 'https://i.ibb.co/FBJ8sjZ/3c45bc159ba136097ccc1fea6dcac164.jpg' },
+                { name: 'Valkyrie', image: 'https://i.ibb.co/ThnbWcM/9f9a5b13295886137132730cd38b1349.jpg' },
+                { name: ' seasparrow2', image: 'https://i.ibb.co/LDj0j30Q/images-gta-5-vehicles-helicopters-main-sparrow.webp' },
+
+            ],
 
 
-],
-'Servizio':[
-{ name: 'BusClassic', image: 'https://img.gta5-mods.com/q95/images/vapid-bus-classic-add-on-replace-liveries/10eb74-motormotel.jpg' },
-{ name: 'taxiwood', image: 'https://i.ibb.co/fLLPKBJ/immagine.png' },
-{ name: 'Seccanis (Humane)', image: 'https://img.gta5-mods.com/q95/images/humane-labs-seminole-frontier-security-add-on/014938-20201107213627_1.jpg' },
+            'Barche': [
+                { name: 'Dinghy5', image: 'https://i.ibb.co/swJzbC1/c0360485c4180830f179bfb6e90767e7.jpg' },
+                { name: 'Patrolboat', image: 'https://i.ibb.co/JzxFSpB/9f1b0bb14545cef17d49d58fa5e81710.jpg' },
+                { name: 'Speeder2', image: 'https://i.ibb.co/KmHFcQD/ebb70b34e017ff4aa91ab3b1730ae1d2.jpg' },
+                { name: 'Toro2', image: 'https://i.ibb.co/YkqnHzn/a9c8fe014d47a794b9bb9d8d5327a409.jpg' },
+                { name: 'Marquis', image: 'https://i.ibb.co/wKvT38j/f0fbc95f799118a6ba6d4cb74cf0fd24.jpg' },
+                { name: 'Tug', image: 'https://i.ibb.co/0tPPX7c/1c39bd3fc4c2fda998e63252ff4678a2.jpg' }
+            ],
+            'Emergenza': [
+                { name: 'Polimpaler6', image: 'https://i.ibb.co/9Nq53Kr/89bc25acadbfc3161f4648c80ed2d3a2.jpg' },
+                { name: 'Polgreenwood', image: 'https://i.ibb.co/prJVNR7/6f69fd9cc8586140a62e29e205b810c8.jpg' },
+            ],
+            'Militare': [
+                { name: 'Vetir', image: 'https://i.ibb.co/4MLHnn9/9ef6bb82946c436292f96c9c4159738d.jpg' },
+                { name: 'Chernobog', image: 'https://i.ibb.co/YQs817C/ca176fc25b6a244567f029f5abe6dfdb.jpg' }
+            ]
+        }
+
+        const addonVehicles = {
+            'Militare': [
+                { name: 'Ah1g', image: 'https://img.gta5-mods.com/q95/images/ah-1g-cobra-add-on/a59e88-0.jpg' },
+                { name: 'uh1raaf', image: 'https://i.ibb.co/8LNgzYJP/immagine.png' },
+                { name: 'uh1raaf2', image: 'https://i.ibb.co/kgx6ZpFN/immagine.png' },
+                { name: 'uralcmd', image: 'https://img.gta5-mods.com/q95/images/ural-4320-pack-add-on-fivem/d8e2e6-Screenshot_2023-10-02_185332-fotor-bg-remover-20231002185359.png' },
+                { name: 'uralwood', image: 'https://img.gta5-mods.com/q95/images/ural-4320-pack-add-on-fivem/d8e2e6-Screenshot_2023-10-09_032047.png' },
+                { name: 'mi8cargo', image: 'https://img.gta5-mods.com/q95/images/mil-mi-8-cargo-trooptransport-add-on-fivem/c50047-2023-09-30_02_55_34.jpg' },
+            ],
+            'Elicotteri': [
+                { name: 'uh1nasa', image: 'https://img.gta5-mods.com/q95/images/uh-1-huey-civilian-livery-pack/28c688-2.png' },
+
+            ],
+            'Emergenza': [
+                { name: 'ambulance', image: 'https://i.ibb.co/zH4Wvgnr/immagine.png' },
+                { name: 'firetruk', image: 'https://i.ibb.co/s8yNqxS/immagine.png' },
+                { name: 'cadge', image: 'https://i.ibb.co/tPK1LFxc/immagine.png' },
+                { name: 'lcambre', image: 'https://i.ibb.co/Gf1hrvnk/immagine.png' },
+                { name: 'lcemsranch', image: 'https://i.ibb.co/7NtdY8st/immagine.png' },
+                { name: 'lssdbri', image: 'https://i.ibb.co/20vYRMpJ/immagine.png' },
+                { name: 'polran', image: 'https://i.ibb.co/qMhc6BJ6/immagine.png' },
+                { name: 'lspdbri', image: 'https://i.ibb.co/Tq7cn65j/immagine.png' },
+
+                { name: 'sahpbri', image: 'https://i.ibb.co/HvVsD2h/immagine.png' },
+
+            ],
+            'Muscle': [
+                { name: 'DomC', image: 'https://img.gta5-mods.com/q95/images/vapid-dominator-classic/49881b-0.jpg' },
+                { name: 'GauntletC', image: 'https://img.gta5-mods.com/q95/images/bravado-gauntlet-classic-add-on-liveries-template/9ac6d5-1.jpg' },
+                { name: 'Paradox', image: 'https://img.gta5-mods.com/q95/images/willard-paradox-add-on-tuning-lods-shards/134d3e-enb2022_10_16_16_01_26_19.png' },
+                { name: 'Ratloader3', image: 'https://img.gta5-mods.com/q95/images/restored-bravado-rat-loader/6101af-GTA5%202017-06-20%2023-07-04-514.jpg' },
+                { name: 'Tannen', image: 'https://img.gta5-mods.com/q85-w800/images/vapid-tannen-add-on-lods-tuning-2-cars/1af11f-tannentop.png' },
+                { name: 'Starlett', image: 'https://img.gta5-mods.com/q95/images/bordeaux-starlette-add-on/73ae3d-starlette7-min.png' },
+                { name: 'Vulture', image: 'https://img.gta5-mods.com/q95/images/bravado-vulture-add-on-tuning-liveries-sounds/06b417-1-min.png' },
+
+                { name: 'vodoo4', image: 'https://img.gta5-mods.com/q95/images/declasse-voodoo-4-door-add-on-replace/a22ab5-GTA5%202017-05-08%2015-10-12-626.jpg' },
 
 
-    
-
-],
-    
-'Furgoni':[
-{ name: 'DCerberus + Dtanker', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-300-hound-classic-tanker-trailer-add-on-liveries-template-monkeypolice188-et-al/afd141-Screenshot%20(4217).jpg' },
-{ name: 'Cerberus4', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-200-300-add-on-liveries-template/f96057-Screenshot%20(3830).jpg' },
-{ name: 'Cerberus5', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-200-300-add-on-liveries-template/f96057-Screenshot%20(3824).jpg' },
-{ name: 'Haulmaster3', image: 'https://img.gta5-mods.com/q95/images/jobuilt-haulmaster-flatbed-add-on-replace/394906-20180702154844_1.jpg' },
-{ name: 'BoxvilleRetro', image: 'https://img.gta5-mods.com/q95/images/brute-boxville-retro-add-on-replace-liveries-template-sound-custom-shards/b78ca7-BoxvilleRetro6.jpg' },
-{ name: 'BoxvilleRetro2', image: 'https://img.gta5-mods.com/q95/images/brute-boxville-retro-add-on-replace-liveries-template-sound-custom-shards/b78ca7-BoxvilleRetro15.jpg' },
-    { name: 'pony', image: 'https://i.ibb.co/XfG4TV4N/immagine.png' },
-        { name: 'master2', image: 'https://img.gta5-mods.com/q95/images/brute-master-b8-binmaster-b8-add-on-liveries-template-sound-custom-shards/3ce117-master15.jpg' },
+            ],
+            'Sportive Classiche': [
+                { name: 'Elena', image: 'https://img.gta5-mods.com/q95/images/ocelot-elena-add-on-unlocked/5ed4db-untitled.101_1920.png' },
+                { name: 'Euphoria', image: 'https://img.gta5-mods.com/q95/images/ocelot-euphoria-add-on-tuning-liveries/e01410-0.png' },
+                { name: 'LynxMK1', image: 'https://img.gta5-mods.com/q95/images/ocelot-lynx-mk-i-add-on-tuning-liveries/cf1296-nasty2.png' },
+                { name: 'SancyB4', image: 'https://img.gta5-mods.com/q95/images/bordeaux-sancy-b4-add-on-tuning-liveries-sounds/6a7334-0-min.png' },
+                { name: 'Cavallos', image: 'https://i.ibb.co/609XqPBb/immagine.png' },
 
 
-],
-'Fuoristrada':[
-{ name: 'Coyote2', image: 'https://img.gta5-mods.com/q95/images/vapid-coyote-off-road-add-on-replace/06379a-GTA5%202017-05-29%2021-00-02-835.jpg' },
-{ name: 'Rancher3', image: 'https://img.gta5-mods.com/q95/images/declasse-rancher-pickup-add-on-replace/b8943b-GTA5%202017-09-11%2021-02-28-114.jpg' },
-{ name: 'Dloader2', image: 'https://img.gta5-mods.com/q95/images/bravado-mastodon-duneloader-add-on-liveries-template/a3c3cf-Screenshot%20(4925).jpg' },
+            ],
+            'Servizio': [
+                { name: 'BusClassic', image: 'https://img.gta5-mods.com/q95/images/vapid-bus-classic-add-on-replace-liveries/10eb74-motormotel.jpg' },
+                { name: 'taxiwood', image: 'https://i.ibb.co/fLLPKBJ/immagine.png' },
+                { name: 'Seccanis (Humane)', image: 'https://img.gta5-mods.com/q95/images/humane-labs-seminole-frontier-security-add-on/014938-20201107213627_1.jpg' },
 
-],
-'Berline':[
-{ name: 'Greenwood2', image: 'https://img.gta5-mods.com/q95/images/schyster-greenwood-dani02/3614ae-GTA5%202017-08-03%2016-22-05-168.jpg' },
-{ name: 'Gwoods', image: 'https://gta5mod.net/wp-content/uploads/2022/01/Schyster-Greenwood-Classic-1536x864.jpg' },
-{ name: 'Panorama', image: 'https://img.gta5-mods.com/q95/images/classique-panorama-pack-add-on-tuning-liveries-lods/4fed19-image_2022-09-30_225359047.png' },
-{ name: 'Regina4', image: 'https://img.gta5-mods.com/q95/images/tlad-regina-sedan-replace/d9ef57-20171229175403_1.jpg' },
-    { name: 'Lurcher2', image: 'https://img.gta5-mods.com/q75/images/civilian-albany-lurcher-add-on/6deccb-LURCHERss1.png' },
-     { name: 'Clique2', image: 'https://img.gta5-mods.com/q95/images/vapid-clique-deluxe-add-on-tuning-liveries-lods/983bec-271590_20210908165401_1_50.png' },
-        { name: 'Fagaloac', image: 'https://img.gta5-mods.com/q95/images/vulcar-fagaloa-coupe-add-on-tuning-lods-shards-car-trailer/ef020d-QuantV_3.0.0_2023-06-09_23-55-29.png' },
 
-],
 
-'Compatte':[
-{ name: 'Hippie', image: 'https://img.gta5-mods.com/q95/images/hippie-camp-car/516fad-vlcsnap-error459.jpg' },
-    { name: 'Brisket', image: 'https://img.gta5-mods.com/q95/images/weeny-brisket-add-on-tuning-lods-shards-multiple-cars/c3e395-437.png' },
-                        { name: 'zinger', image: 'https://img.gta5-mods.com/q95/images/vulcar-zinger-add-on-tuning-template/3a9387-zingus1-min.png' },
 
-],
+            ],
 
-};
+            'Furgoni': [
+                { name: 'DCerberus + Dtanker', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-300-hound-classic-tanker-trailer-add-on-liveries-template-monkeypolice188-et-al/afd141-Screenshot%20(4217).jpg' },
+                { name: 'Cerberus4', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-200-300-add-on-liveries-template/f96057-Screenshot%20(3830).jpg' },
+                { name: 'Cerberus5', image: 'https://img.gta5-mods.com/q95/images/mtl-cerberus-200-300-add-on-liveries-template/f96057-Screenshot%20(3824).jpg' },
+                { name: 'Haulmaster3', image: 'https://img.gta5-mods.com/q95/images/jobuilt-haulmaster-flatbed-add-on-replace/394906-20180702154844_1.jpg' },
+                { name: 'BoxvilleRetro', image: 'https://img.gta5-mods.com/q95/images/brute-boxville-retro-add-on-replace-liveries-template-sound-custom-shards/b78ca7-BoxvilleRetro6.jpg' },
+                { name: 'BoxvilleRetro2', image: 'https://img.gta5-mods.com/q95/images/brute-boxville-retro-add-on-replace-liveries-template-sound-custom-shards/b78ca7-BoxvilleRetro15.jpg' },
+                { name: 'pony', image: 'https://i.ibb.co/XfG4TV4N/immagine.png' },
+                { name: 'master2', image: 'https://img.gta5-mods.com/q95/images/brute-master-b8-binmaster-b8-add-on-liveries-template-sound-custom-shards/3ce117-master15.jpg' },
+
+
+            ],
+            'Fuoristrada': [
+                { name: 'Coyote2', image: 'https://img.gta5-mods.com/q95/images/vapid-coyote-off-road-add-on-replace/06379a-GTA5%202017-05-29%2021-00-02-835.jpg' },
+                { name: 'Rancher3', image: 'https://img.gta5-mods.com/q95/images/declasse-rancher-pickup-add-on-replace/b8943b-GTA5%202017-09-11%2021-02-28-114.jpg' },
+                { name: 'Dloader2', image: 'https://img.gta5-mods.com/q95/images/bravado-mastodon-duneloader-add-on-liveries-template/a3c3cf-Screenshot%20(4925).jpg' },
+
+            ],
+            'Berline': [
+                { name: 'Greenwood2', image: 'https://img.gta5-mods.com/q95/images/schyster-greenwood-dani02/3614ae-GTA5%202017-08-03%2016-22-05-168.jpg' },
+                { name: 'Gwoods', image: 'https://gta5mod.net/wp-content/uploads/2022/01/Schyster-Greenwood-Classic-1536x864.jpg' },
+                { name: 'Panorama', image: 'https://img.gta5-mods.com/q95/images/classique-panorama-pack-add-on-tuning-liveries-lods/4fed19-image_2022-09-30_225359047.png' },
+                { name: 'Regina4', image: 'https://img.gta5-mods.com/q95/images/tlad-regina-sedan-replace/d9ef57-20171229175403_1.jpg' },
+                { name: 'Lurcher2', image: 'https://img.gta5-mods.com/q75/images/civilian-albany-lurcher-add-on/6deccb-LURCHERss1.png' },
+                { name: 'Clique2', image: 'https://img.gta5-mods.com/q95/images/vapid-clique-deluxe-add-on-tuning-liveries-lods/983bec-271590_20210908165401_1_50.png' },
+                { name: 'Fagaloac', image: 'https://img.gta5-mods.com/q95/images/vulcar-fagaloa-coupe-add-on-tuning-lods-shards-car-trailer/ef020d-QuantV_3.0.0_2023-06-09_23-55-29.png' },
+
+            ],
+
+            'Compatte': [
+                { name: 'Hippie', image: 'https://img.gta5-mods.com/q95/images/hippie-camp-car/516fad-vlcsnap-error459.jpg' },
+                { name: 'Brisket', image: 'https://img.gta5-mods.com/q95/images/weeny-brisket-add-on-tuning-lods-shards-multiple-cars/c3e395-437.png' },
+                { name: 'zinger', image: 'https://img.gta5-mods.com/q95/images/vulcar-zinger-add-on-tuning-template/3a9387-zingus1-min.png' },
+
+            ],
+
+        };
 
 
         let currentMode = '';
@@ -625,7 +643,7 @@ const addonVehicles = {
             document.getElementById('loading').style.display = show ? 'flex' : 'none';
         }
 
- function selectMode(mode) {
+        function selectMode(mode) {
             currentMode = mode;
             document.getElementById('modeSelection').style.display = 'none';
             document.getElementById('catalog').style.display = 'block';
@@ -639,10 +657,10 @@ const addonVehicles = {
             currentMode = '';
         }
 
- function createCategoryButtons() {
+        function createCategoryButtons() {
             const container = document.getElementById('categoryButtons');
             container.innerHTML = '';
-            
+
             const allButton = document.createElement('button');
             allButton.textContent = 'Tutti';
             allButton.className = 'category-btn active';
@@ -660,38 +678,38 @@ const addonVehicles = {
         }
 
         function displayVehicles(category, searchTerm = '') {
-    const grid = document.getElementById('vehiclesGrid');
-    grid.innerHTML = '';
+            const grid = document.getElementById('vehiclesGrid');
+            grid.innerHTML = '';
 
-    let vehiclesToDisplay = [];
-    const vehicles = currentMode === 'stock' ? stockVehicles : addonVehicles;
+            let vehiclesToDisplay = [];
+            const vehicles = currentMode === 'stock' ? stockVehicles : addonVehicles;
 
-    if (category === 'all') {
-        Object.entries(vehicles).forEach(([cat, vehs]) => {
-            vehs.forEach(vehicle => {
-                vehiclesToDisplay.push({ ...vehicle, category: cat });
-            });
-        });
-    } else {
-        const categoryVehicles = vehicles[category];
-        categoryVehicles.forEach(vehicle => {
-            vehiclesToDisplay.push({ ...vehicle, category: category });
-        });
-    }
+            if (category === 'all') {
+                Object.entries(vehicles).forEach(([cat, vehs]) => {
+                    vehs.forEach(vehicle => {
+                        vehiclesToDisplay.push({ ...vehicle, category: cat });
+                    });
+                });
+            } else {
+                const categoryVehicles = vehicles[category];
+                categoryVehicles.forEach(vehicle => {
+                    vehiclesToDisplay.push({ ...vehicle, category: category });
+                });
+            }
 
-    if (searchTerm) {
-        vehiclesToDisplay = vehiclesToDisplay.filter(vehicle => 
-            vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            vehicle.category.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    }
+            if (searchTerm) {
+                vehiclesToDisplay = vehiclesToDisplay.filter(vehicle =>
+                    vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    vehicle.category.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
 
-    vehiclesToDisplay.forEach(vehicle => {
-        const card = document.createElement('div');
-        card.className = 'vehicle-card';
+            vehiclesToDisplay.forEach(vehicle => {
+                const card = document.createElement('div');
+                card.className = 'vehicle-card';
 
-        // Costruzione del contenuto della card
-        let cardContent = `
+                // Costruzione del contenuto della card
+                let cardContent = `
             <img class="vehicle-image" src="${vehicle.image || '/api/placeholder/400/200'}" alt="${vehicle.name}" />
             <div class="vehicle-info">
                 <div class="vehicle-name">${vehicle.name}</div>
@@ -702,22 +720,22 @@ const addonVehicles = {
             </div>
         `;
 
-        card.innerHTML = cardContent;
-        grid.appendChild(card);
-    });
+                card.innerHTML = cardContent;
+                grid.appendChild(card);
+            });
 
-    // Se non ci sono veicoli da mostrare, visualizza un messaggio
-    if (vehiclesToDisplay.length === 0) {
-        const noResults = document.createElement('div');
-        noResults.style.gridColumn = '1 / -1';
-        noResults.style.textAlign = 'center';
-        noResults.style.padding = '2rem';
-        noResults.style.color = 'var(--primary)';
-        noResults.style.fontSize = '1.2rem';
-        noResults.innerHTML = 'Nessun veicolo trovato';
-        grid.appendChild(noResults);
-    }
-}
+            // Se non ci sono veicoli da mostrare, visualizza un messaggio
+            if (vehiclesToDisplay.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.style.gridColumn = '1 / -1';
+                noResults.style.textAlign = 'center';
+                noResults.style.padding = '2rem';
+                noResults.style.color = 'var(--primary)';
+                noResults.style.fontSize = '1.2rem';
+                noResults.innerHTML = 'Nessun veicolo trovato';
+                grid.appendChild(noResults);
+            }
+        }
 
 
 
@@ -738,7 +756,7 @@ const addonVehicles = {
         });
 
         // Gestione degli errori di caricamento immagini
-        document.addEventListener('error', function(e) {
+        document.addEventListener('error', function (e) {
             if (e.target.tagName.toLowerCase() === 'img') {
                 e.target.src = '/api/placeholder/400/200';
             }
@@ -748,4 +766,5 @@ const addonVehicles = {
         showLoading(false);
     </script>
 </body>
+
 </html>
