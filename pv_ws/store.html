@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store - 70's on FiveM</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: rgba(0, 77, 97, 0.95);
+            --primary-light: rgba(24, 109, 133, 0.6);
+            --accent-gold: #ffd700;
+            --text-light: #f0f0f0;
+            --text-dark: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: url('https://i.ibb.co/f7zQsV1/immagine.png') center/cover fixed;
+            min-height: 100vh;
+            color: var(--text-light);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 77, 97, 0.9), rgba(0, 77, 97, 0.85));
+            z-index: -1;
+        }
+
+      /* Navbar con effetto glass */
+      .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            background: rgba(0, 77, 97, 0.85);
+            backdrop-filter: blur(10px);
+            height: 80px;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .homepage {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .homepage::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6c5ce7, #a8e6cf);
+            transition: width 0.3s ease;
+        }
+
+        .homepage:hover::after {
+            width: 100%;
+        }
+
+        .homepage img {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+        }
+
+        .server-name {
+            color: var(--text-light);
+            margin-left: 15px;
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .center-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .nav-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .nav-button:hover:before {
+            left: 100%;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .rules {
+            background: linear-gradient(135deg, #d63031, #e84393);
+        }
+
+        .howto {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+        }
+
+        .scheda {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+        }
+
+        .wiki {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        }
+
+        .store {
+            background: linear-gradient(135deg, #e17055, #fdcb6e);
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .faqs {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 17px;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .faqs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+            transition: width 0.3s ease;
+        }
+
+        .faqs:hover::after {
+            width: 100%;
+        }
+
+        .social-icons, .social-icons-ds {
+            display: flex;
+            gap: 18px;
+        }
+
+        .social-icon-wrapper {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+        }
+
+        .social-icon-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: rotateGradient 3s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .social-icons img, .social-icons-ds img {
+            width: 25px;
+            height: 25px;
+            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+            z-index: 1;
+        }
+
+        .social-icon-wrapper:hover {
+            transform: translateY(-3px) scale(1.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .store-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 2rem;
+        }
+
+        .store-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            background: #666;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            opacity: 0.9;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .buy-button {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: var(--text-dark);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+         /* Footer stylish */
+         .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 77, 97, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 14px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #a8e6cf;
+        }
+
+        .copyright {
+            opacity: 0.8;
+        }
+
+
+        @media (max-width: 768px) {
+            .store-container {
+                margin: 80px 20px 20px;
+                padding: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar migliorata -->
+<nav class="navbar">
+    <div class="left-section">
+        <a href="index.html" class="homepage animate__animated animate__fadeIn">
+            <img src="https://i.ibb.co/QFPCPVMy/HLUQ5oB.png" alt="P" />
+        </a>
+        <span class="server-name animate__animated animate__fadeIn animate__delay-1s">70's on FiveM</span>
+    </div>
+
+    <div class="center-buttons">
+        <a href="regolamento.html" class="nav-button rules animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-gavel"></i> Rules
+        </a>
+        <a href="/howto" class="nav-button howto animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-question-circle"></i> How to
+        </a>
+        <a href="scheda.html" class="nav-button scheda animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-id-card"></i> Scheda
+        </a>
+        <a href="wiki.html" class="nav-button wiki animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-book"></i> Wiki
+        </a>
+        <a href="/store" class="nav-button store animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-store"></i> Store
+        </a>
+    </div>
+
+    <div class="right-section">
+        <a href="/faqs" class="faqs animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-info-circle"></i> FAQs
+        </a>
+        <div class="social-icons">
+            <div class="social-icon-wrapper animate__animated animate__fadeIn animate__delay-1s">
+                <a href="fivem://connect/yourserver">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/FiveM-Logo.png" alt="FiveM" />
+                </a>
+            </div>
+        </div>
+        <div class="social-icons-ds">
+            <div class="social-icon-wrapper animate__animated animate__fadeIn animate__delay-1s">
+                <a href="https://discord.gg/yourserver">
+                    <img src="https://brandlogos.net/wp-content/uploads/2021/11/discord-logo.png" alt="Discord" />
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <div class="store-container">
+        <div class="store-header animate__animated animate__fadeIn">
+            <h1>PEAKVILLE MERCH STORE</h1>
+            <p>Indossa con orgoglio i colori della tua città preferita</p>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card animate__animated animate__fadeInUp">
+                <img src="https://i.ibb.co/HDzDDQp3/immagine.png" alt="T-Shirt Classica" class="product-image">
+                <h3 class="product-title">T-Shirt Classica Peakville</h3>
+                <p class="product-description">T-shirt vintage con il logo classico di Peakville. 100% cotone, disponibile in varie taglie.</p>
+                <p class="product-price">€29.99</p>
+                <button class="buy-button">Acquista Ora</button>
+            </div>
+
+            <div class="product-card animate__animated animate__fadeInUp">
+                <img src="https://m.media-amazon.com/images/I/B1pppR4gVKL._CLa%7C2140%2C2000%7C71AqqRYLW4L.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_AC_UY1000_.png" alt="T-Shirt Retro" class="product-image">
+                <h3 class="product-title">T-Shirt Retro</h3>
+                <p class="product-description">Design esclusivo con stile retro. Edizione limitata.</p>
+                <p class="product-price">€34.99</p>
+                <button class="buy-button">Acquista Ora</button>
+            </div>
+
+            <div class="product-card animate__animated animate__fadeInUp">
+                <img src="https://images.halloweencostumes.eu/products/10883/1-1/mens-sheriff-shirt.jpg" alt="T-Shirt Police" class="product-image">
+                <h3 class="product-title">T-Shirt Sheriff</h3>
+                <p class="product-description">Replica ufficiale della divisa degli sceriffi</p>
+                <p class="product-price">€32.99</p>
+                <button class="buy-button">Acquista Ora</button>
+            </div>
+
+            <div class="product-card animate__animated animate__fadeInUp">
+                <img src="https://www.patagonia.co.nz/cdn/shop/files/37999_UFIB_2000x.jpg?v=1709591587" alt="Cappello Vintage" class="product-image">
+                <h3 class="product-title">Cappello Vintage Trucker</h3>
+                <p class="product-description">Cappello stile trucker con patch ricamata del logo Peakville. Regolabile.</p>
+                <p class="product-price">€24.99</p>
+                <button class="buy-button">Acquista Ora</button>
+            </div>
+
+            <div class="product-card animate__animated animate__fadeInUp">
+                <img src="https://m.media-amazon.com/images/I/71Z+oisUVmL._AC_UY1000_.jpg" alt="Cappello Baseball" class="product-image">
+                <h3 class="product-title">Cappello Baseball '78</h3>
+                <p class="product-description">Cappello da baseball in stile retrò con logo vintage del 1978.</p>
+                <p class="product-price">€27.99</p>
+                <button class="buy-button">Acquista Ora</button>
+            </div>
+        </div>
+    </div>
+
+     <!-- Footer moderno -->
+     <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/about" class="footer-link">About</a>
+                <a href="/privacy" class="footer-link">Privacy</a>
+                <a href="/terms" class="footer-link">Terms</a>
+            </div>
+            <div class="copyright">
+                © 2025 Peakville - All rights reserved
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

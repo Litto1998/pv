@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peakville - Regolamento</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+         @font-face {
+            font-family: 'Titania';
+            src: url('Titania-Regular.ttf') format('truetype');
+        }
+        :root {
+            --primary-dark: rgba(0, 77, 97, 0.95);
+            --primary-light: rgba(24, 109, 133, 0.6);
+            --text-light: #f0f0f0;
+            --text-dark: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Titania', sans-serif;
+        }
+
+        body {
+            background: url('https://i.ibb.co/f7zQsV1/immagine.png') center/cover fixed;
+            min-height: 100vh;
+            color: var(--text-light);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 77, 97, 0.9), rgba(0, 77, 97, 0.85));
+            z-index: -1;
+        }
+
+  /* Navbar con effetto glass */
+  .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            background: rgba(0, 77, 97, 0.85);
+            backdrop-filter: blur(10px);
+            height: 80px;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .homepage {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .homepage::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6c5ce7, #a8e6cf);
+            transition: width 0.3s ease;
+        }
+
+        .homepage:hover::after {
+            width: 100%;
+        }
+
+        .homepage img {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+        }
+
+        .server-name {
+            color: var(--text-light);
+            margin-left: 15px;
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .center-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .nav-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .nav-button:hover:before {
+            left: 100%;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .rules {
+            background: linear-gradient(135deg, #d63031, #e84393);
+        }
+
+        .howto {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+        }
+
+        .scheda {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+        }
+
+        .wiki {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        }
+
+        .store {
+            background: linear-gradient(135deg, #e17055, #fdcb6e);
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .faqs {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 17px;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .faqs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+            transition: width 0.3s ease;
+        }
+
+        .faqs:hover::after {
+            width: 100%;
+        }
+
+        .social-icons, .social-icons-ds {
+            display: flex;
+            gap: 18px;
+        }
+
+        .social-icon-wrapper {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+        }
+
+        .social-icon-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: rotateGradient 3s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .social-icons img, .social-icons-ds img {
+            width: 25px;
+            height: 25px;
+            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+            z-index: 1;
+        }
+
+        .social-icon-wrapper:hover {
+            transform: translateY(-3px) scale(1.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .rules-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 2rem;
+            background: rgba(0, 77, 97, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+    /* Rules Sections */
+.rules-section {
+    background: rgba(0, 77, 97, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.rules-section:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rules-section h2 {
+    color: #ffd700;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 0.8rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.rule-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.rule-item:hover {
+    border-left-color: #ffd700;
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(5px);
+}
+
+.rule-number {
+    color: #ffd700;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+
+          /* Footer stylish */
+          .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 77, 97, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 14px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #a8e6cf;
+        }
+
+        .copyright {
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            .rules-container {
+                margin: 80px 20px 20px;
+                padding: 1rem;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+  <!-- Navbar migliorata -->
+  <nav class="navbar">
+    <div class="left-section">
+        <a href="index.html" class="homepage animate__animated animate__fadeIn">
+            <img src="https://i.ibb.co/QFPCPVMy/HLUQ5oB.png" alt="P" />
+        </a>
+        <span class="server-name animate__animated animate__fadeIn animate__delay-1s">70's on FiveM</span>
+    </div>
+
+    <div class="center-buttons">
+        <a href="/rules" class="nav-button rules animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-gavel"></i> Rules
+        </a>
+        <a href="/howto" class="nav-button howto animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-question-circle"></i> How to
+        </a>
+        <a href="scheda.html" class="nav-button scheda animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-id-card"></i> Scheda
+        </a>
+        <a href="wiki.html" class="nav-button wiki animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-book"></i> Wiki
+        </a>
+        <a href="/store" class="nav-button store animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-store"></i> Store
+        </a>
+    </div>
+
+    <div class="right-section">
+        <a href="/faqs" class="faqs animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-info-circle"></i> FAQs
+        </a>
+        <div class="social-icons">
+            <div class="social-icon-wrapper animate__animated animate__fadeIn animate__delay-1s">
+                <a href="fivem://connect/yourserver">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/FiveM-Logo.png" alt="FiveM" />
+                </a>
+            </div>
+        </div>
+        <div class="social-icons-ds">
+            <div class="social-icon-wrapper animate__animated animate__fadeIn animate__delay-1s">
+                <a href="https://discord.gg/yourserver">
+                    <img src="https://brandlogos.net/wp-content/uploads/2021/11/discord-logo.png" alt="Discord" />
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <div class="rules-container">
+        <div class="intro animate__animated animate__fadeIn">
+            <h1>REGOLAMENTO PEAKVILLE ANNI '70</h1>
+            <p>Versione 2.0 - Ultimo aggiornamento: 19.02.2024</p>
+            <br>
+            <p>Siamo nel 1978, in una piccola cittadina della California in forte espansione: Peakville. 
+            Tra mare e montagna, questa città nasconde segreti ed enigmi tutti da scoprire...</p>
+        </div>
+
+        <div class="rules-section animate__animated animate__fadeInUp">
+            <h2><i class="fas fa-gavel"></i> REGOLE GENERALI</h2>
+            <div class="rule-item">
+                <span class="rule-number">[1.1]</span> La mentalità tryharder non è ben accetta. Le azioni saranno valutate sulla base di quanto RP generano.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.2]</span> Lo staff si riserva la facoltà di sospendere la WL in presenza di gravi violazioni.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.3]</span> Tossicità e flame tra player e/o verso lo staff porteranno al permaban.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.4]</span> VIETATO CONTATTARE IN PRIVATO LO STAFF. Per interagire con esso, aprire un ticket che varia in base al tipo di esigenza. Si ricorda di allegare nel ticket clip/screenshot oltre a spiegare brevemente la problematica.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.5]</span> TICKET NON CONFORMI ai criteri di cui sopra o che evidenzino l’utilizzo di mod grafiche e/o risoluzioni innaturali, saranno automaticamente chiusi e non sarà consentito riaprirlo avendo per oggetto la stessa problematica.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.6]</span> NO RIVALUTAZIONI. La parola dello staff è una sola e va rispettata. Ricordiamo che è un GDR e non ha senso perseverare per “vincere”.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.7]</span> NO MOD GRAFICHE e/o RISOLUZIONI INNATURALI finalizzate ad ottenere un vantaggio prestazionale in game.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.8]</span> Sono ammessi ACCENTI/INFLESSIONI STRANIERE purché coerenti con il BG: esempio spagnolo per PG di origine latina.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.9]</span> NO ZONE SAFE.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.10]</span> Non imponetevi sugli altri al punto da impedirgli di poter scegliere il proprio destino (POWERPLAY). Ricordate l’importanza di dare gioco anche agli altri.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.11]</span> Il vostro PG conosce solo ciò che vive e sente in gioco, tutto il resto è classificato METAGAME. Rientra in questa categoria anche forzare la conoscenza/legame con qualcuno/a solo perché lo avete riconosciuto/a off (senza valide motivazioni RP).
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.12]</span> Investire un altro player con un veicolo, senza valido motivo, è considerato VDM. Tuttavia, se un altro player vi tiene sotto tiro ed è davanti il vostro veicolo, per salvarvi la vita è consentito fare tutto il possibile (assumendo i rischi del caso).
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.13]</span> NON USCITE MAI DALL’RP (es. “faccio puff”; “ci vediamo su DS”; “ci vediamo in caff”). Anche in presenza di situazioni sgradevoli, cattivo roleplay o insulti, allontanatevi e contattate subito uno staffer tramite ticket.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.14]</span> In caso di WIPE DEL PG non è consentito collegarsi in alcun modo alla storia precedente (forzature in tal senso porteranno a seri provvedimenti dello staff).
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.15]</span> Le REGISTRAZIONI/FOTO UTILIZZATE COME PROVE IC devono essere effettuate con item adatto e non con programmi di terze parti.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[1.16]</span> Le info rilevanti che possano condizionare fortemente il destino proprio o quello altrui devono essere CONVALIDATE tramite ticket prima di utilizzarle. Si ricorda che comunicazioni importanti delle autorità, relativi a minacce/pericoli, devono essere prese molto seriamente, potendo incorrere in permadeath.
+            </div>
+            
+        </div>
+
+        <div class="rules-section animate__animated animate__fadeInUp">
+            <h2><i class="fas fa-user-shield"></i> PRINCIPI FONDAMENTALI</h2>
+            <div class="rule-item">
+                <span class="rule-number">[2.1]</span> È possibile richiedere il permadeath tramite ticket, fornendo motivazioni gravi e rilevanti.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[2.4]</span> In caso di ferimento/respawn potrete ricordare tutti gli eventi precedenti, simulando un vuoto di memoria proporzionale ai traumi subiti.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[2.5]</span> È consentito RICONOSCERE LE VOCI qualora siano state già sentite dal vostro PG per un tempo sufficiente a determinarne con certezza l’identità (è vietato l’utilizzo di qualsiasi sintetizzatore vocale).
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[2.6]</span> Le MASCHERE non rendono il PG totalmente irriconoscibile. Tutto ciò che risulta visibile è considerabile motivo di forte sospetto (es. tatuaggi, accenti, frasi/modi di dire). Anche l’utilizzo degli stessi vestiti potrebbe essere un potenziale indizio.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[2.7]</span> L’INIZIO DELL’AZIONE corrisponde alla reazione ad un comportamento altrui che ti coinvolge direttamente/indirettamente. L’utilizzo delle armi è da considerarsi sempre l’ultima risorsa a vostra disposizione.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[2.8]</span> NO CHAT AZIONE, NO FINE AZIONE. Spetterà a voi decidere quando allontanarvi oppure abbandonare l'azione (es. per scappare da un arresto o cercare di salvare un compagno ferito, spostandolo da un potenziale pericolo).
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[2.9]</span> VIETATO IMPERSONARE ALTRO PG (es. tramite cambio look o tonalità di voce) in quanto si andrebbe ad abusare di dinamiche di gioco.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[2.10]</span> A discrezione dello staff, sarà attribuito lo status di FIGURA ICONICA la quale avrà il vantaggio di essere tutelata da una motivazione permadeath aggiuntiva a sua difesa. Questo status è attribuito esclusivamente per meriti roleplay.
+            </div>
+            
+        </div>
+
+        <div class="rules-section animate__animated animate__fadeInUp">
+            <h2><i class="fas fa-balance-scale"></i> CRIMINALITÀ</h2>
+            <div class="rule-item">
+                <span class="rule-number">[3.1]</span> Ogni fazione ha max 5 membri. È vietata ogni alleanza tra fazioni.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[3.2]</span> I rapimenti richiedono valide motivazioni e devono generare gioco per entrambe le parti.
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">[3.7]</span> Le droghe costituiscono una parte rilevante di quegli anni e devono essere utilizzate in modo realistico.
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/about" class="footer-link">About</a>
+                <a href="/privacy" class="footer-link">Privacy</a>
+                <a href="/terms" class="footer-link">Terms</a>
+            </div>
+            <div class="copyright">
+                © 2025 Peakville - All rights reserved
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

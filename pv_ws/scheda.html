@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peakville - Scheda</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.5.0/parallax.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'Titania';
+            src: url('Titania-Regular.ttf') format('truetype');
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+        :root {
+            --primary-dark: rgba(0, 77, 97, 0.95);
+            --primary-light: rgba(24, 109, 133, 0.6);
+            --accent-red: #ff6b6b;
+            --accent-green: #00b894;
+            --accent-blue: #0984e3;
+            --accent-purple: #6c5ce7;
+            --accent-orange: #e17055;
+            --text-light: #f0f0f0;
+            --text-dark: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --glass-effect: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background: url('https://i.ibb.co/f7zQsV1/immagine.png') center/cover fixed;
+            min-height: 100vh;
+            font-family: 'Titania', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(24, 109, 133, 0.6), rgba(0, 77, 97, 0.55));
+            z-index: -1;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+              /* Navbar con effetto glass */
+              .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            background: rgba(0, 77, 97, 0.85);
+            backdrop-filter: blur(10px);
+            height: 80px;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .homepage {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .homepage::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6c5ce7, #a8e6cf);
+            transition: width 0.3s ease;
+        }
+
+        .homepage:hover::after {
+            width: 100%;
+        }
+
+        .homepage img {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+        }
+
+        .server-name {
+            color: var(--text-light);
+            margin-left: 15px;
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .center-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .nav-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .nav-button:hover:before {
+            left: 100%;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .rules {
+            background: linear-gradient(135deg, #d63031, #e84393);
+        }
+
+        .howto {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+        }
+
+        .scheda {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+        }
+
+        .wiki {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+        }
+
+        .store {
+            background: linear-gradient(135deg, #e17055, #fdcb6e);
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .faqs {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 17px;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .faqs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+            transition: width 0.3s ease;
+        }
+
+        .faqs:hover::after {
+            width: 100%;
+        }
+
+        .social-icons, .social-icons-ds {
+            display: flex;
+            gap: 18px;
+        }
+
+        .social-icon-wrapper {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+        }
+
+        .social-icon-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: rotateGradient 3s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .social-icons img, .social-icons-ds img {
+            width: 25px;
+            height: 25px;
+            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+            z-index: 1;
+        }
+
+        .social-icon-wrapper:hover {
+            transform: translateY(-3px) scale(1.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer stylish */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 77, 97, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 14px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #a8e6cf;
+        }
+
+        .copyright {
+            opacity: 0.8;
+        }
+        
+/* Stile Polaroid */
+.polaroid-container {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transform: rotate(5deg);
+    z-index: 10;
+}
+
+.polaroid {
+    background: #fff;
+    padding: 10px 10px 25px 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    width: 250px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.polaroid:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.polaroid-image {
+    width: 100%;
+    height: 300px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    position: relative;
+    overflow: hidden;
+}
+
+.polaroid-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.7) sepia(0.2);
+}
+
+.polaroid-caption {
+    text-align: center;
+    font-family: 'Permanent Marker', cursive;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    transform: rotate(-1deg);
+}
+
+/* Stile per la puntina */
+.pushpin {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle at 30% 30%, #f00, #900);
+    border-radius: 50%;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    z-index: 11;
+}
+
+/* Assicurati che la scheda principale abbia position relative */
+.example-sheet {
+    position: relative;
+    padding-right: 280px; /* Per far spazio alla polaroid */
+}
+
+/* Effetto sbiadito per la foto segnataletica */
+.polaroid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Strisce verticali che simulano l'effetto di una vecchia stampa */
+.polaroid-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(0,0,0,0.05) 100px, rgba(0,0,0,0.05) 102px);
+    pointer-events: none;
+}
+        .server-name {
+            color: var(--text-light);
+            margin-left: 15px;
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        /* Main content styles */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            font-family: 'Titania', sans-serif;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 42px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: textGlow 3s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 150, 200, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(0, 180, 230, 0.8), 0 0 30px rgba(0, 200, 255, 0.6); }
+        }
+
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6c5ce7, #a8e6cf);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .content-card {
+            background: rgba(0, 77, 97, 0.75);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 30px;
+            
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffd93d;
+            text-shadow: 0 0 10px rgba(255, 217, 61, 0.4);
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #ffd93d, transparent);
+        }
+
+        .content-card p {
+            font-size: 16px;
+            font-family: 'Titania', sans-serif;
+
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-card ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content-card li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .content-card li::before {
+            color: var(--accent-orange);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .example-sheet {
+            background: rgba(10, 10, 10, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            font-family: 'Special Elite', monospace;
+            color: #a8e6cf;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(168, 230, 207, 0.2);
+        }
+
+        .example-sheet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6c5ce7, #a8e6cf);
+        }
+
+        .sheet-header {
+            text-align: center;
+            font-family: 'Special Elite', monospace;
+            border-bottom: 1px solid rgba(168, 230, 207, 0.3);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .classified-stamp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-family: 'Special Elite', monospace;
+            font-size: 60px;
+            color: rgba(255, 107, 107, 0.2);
+            border: 5px solid rgba(255, 107, 107, 0.2);
+            padding: 10px 20px;
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .sheet-section {
+            margin-bottom: 20px;
+            
+        }
+
+        .sheet-section h3 {
+            color: #ffd93d;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255, 217, 61, 0.3);
+            
+        }
+
+        .field-label {
+            color: #e17055;
+            font-weight: bold;
+            margin-right: 10px;
+            font-family: 'Special Elite', monospace;
+
+        }
+
+        .field-value {
+            color: #f0f0f0;
+            font-family: 'Special Elite', monospace;
+
+        }
+
+        .encrypted-field {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3px 8px;
+            color: rgba(168, 230, 207, 0.5);
+            font-family: monospace;
+            letter-spacing: 1px;
+            border-radius: 3px;
+            position: relative;
+        }
+
+        .encrypted-field::before {
+            content: '🔒';
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .encrypted-info {
+            color: #e17055;
+            font-size: 14px;
+            font-family: 'Special Elite', monospace;
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px dashed rgba(225, 112, 85, 0.5);
+            border-radius: 5px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(9, 132, 227, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 20px rgba(9, 132, 227, 0.6);
+        }
+
+        .cta-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Decoration */
+        .corner-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .top-right {
+            top: 0;
+            right: 0;
+            background: radial-gradient(circle at top right, var(--accent-red), transparent 70%);
+        }
+
+        .bottom-left {
+            bottom: 0;
+            left: 0;
+            background: radial-gradient(circle at bottom left, var(--accent-green), transparent 70%);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 32px;
+            }
+
+            .content-card {
+                padding: 20px;
+            }
+
+            .example-sheet {
+                padding: 15px;
+            }
+
+            .classified-stamp {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-title {
+                font-size: 28px;
+            }
+
+            .content-card h2 {
+                font-size: 24px;
+                
+            }
+
+            .content-card p {
+                font-size: 14px;
+            }
+
+            .example-sheet {
+                padding: 10px;
+            }
+
+            .classified-stamp {
+                font-size: 30px;
+            }
+        }
+        li strong {
+    color: #ffd93d;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Particelle di sfondo -->
+    <div class="particles" id="particles-js"></div>
+
+<!-- Navbar migliorata -->
+<nav class="navbar">
+    <div class="left-section">
+        <a href="index.html" class="homepage animate__animated animate__fadeIn">
+            <img src="https://i.ibb.co/QFPCPVMy/HLUQ5oB.png" alt="P" />
+        </a>
+        <span class="server-name animate__animated animate__fadeIn animate__delay-1s">70's on FiveM</span>
+    </div>
+
+    <div class="center-buttons">
+        <a href="/rules" class="nav-button rules animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-gavel"></i> Rules
+        </a>
+        <a href="/howto" class="nav-button howto animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-question-circle"></i> How to
+        </a>
+        <a href="/scheda" class="nav-button scheda animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-id-card"></i> Scheda
+        </a>
+        <a href="wiki.html" class="nav-button wiki animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-book"></i> Wiki
+        </a>
+        <a href="/store" class="nav-button store animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-store"></i> Store
+        </a>
+    </div>
+
+    <div class="right-section">
+        <a href="/faqs" class="faqs animate__animated animate__fadeIn animate__delay-1s">
+            <i class="fas fa-info-circle"></i> FAQs
+        </a>
+        <div class="social-icons">
+            <div class="social-icon-wrapper animate__animated animate__fadeIn animate__delay-1s">
+                <a href="fivem://connect/yourserver">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/FiveM-Logo.png" alt="FiveM" />
+                </a>
+            </div>
+        </div>
+        <div class="social-icons-ds">
+            <div class="social-icon-wrapper animate__animated animate__fadeIn animate__delay-1s">
+                <a href="https://discord.gg/yourserver">
+                    <img src="https://brandlogos.net/wp-content/uploads/2021/11/discord-logo.png" alt="Discord" />
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <div class="main-container">
+        <h1 class="page-title animate__animated animate__fadeInDown">Creazione del Personaggio</h1>
+
+        <div class="content-card animate__animated animate__fadeInUp">
+            <h2><i class="fas fa-id-card"></i> La Scheda del Personaggio</h2>
+            <p>La scheda di creazione del personaggio su Peakville serve a raccogliere informazioni essenziali sul background del personaggio (PG) che si sta creando, e permette di gestire l'interazione con il mondo di gioco in modo coerente. Una volta compilata tramite terminale, la scheda viene utilizzata dalle forze dell'ordine per avere un quadro generale del personaggio, a eccezione delle informazioni criptate riguardanti il passato criminale e le caratteristiche psico-emotive.</p>
+            <p>Queste informazioni criptate possono essere sbloccate o consultate da giocatori con determinate abilità o privilegi, come i Tier di Intuito.</p>
+        </div>
+
+        <div class="content-card animate__animated animate__fadeInUp animate__delay-1s">
+            <h2><i class="fas fa-clipboard-list"></i> Sezioni della Scheda</h2>
+            
+            <div class="sheet-section">
+                <h3><i class="fas fa-user"></i> Informazioni Generali</h3>
+                <ul>
+                    <li><strong>Nome e Cognome:</strong> Identifica il personaggio.</li>
+                    <li><strong>Sesso:</strong> Specifica il sesso del personaggio.</li>
+                    <li><strong>Data di Nascita:</strong> Per stabilire l'età e altre caratteristiche, come l'appartenenza a determinate fasce di età.</li>
+                    <li><strong>Provenienza e Cittadinanza:</strong> Indica da dove proviene il personaggio e se è cittadino statunitense, utile per la gestione di leggi e diritti in gioco.</li>
+                    <li><strong>Etnia:</strong> Aiuta a definire la provenienza etnica, con eventuali implicazioni culturali nel gioco.</li>
+                    <li><strong>Stato Civile:</strong> Rileva se il personaggio è sposato o meno, influenzando dinamiche relazionali e legali.</li>
+                    <li><strong>Gruppo Sanguigno e Numero di Scarpe:</strong> Dettagli fisici che potrebbero essere usati per esigenze mediche o altre situazioni pratiche.</li>
+                </ul>
+            </div>
+            
+            <div class="sheet-section">
+                <h3><i class="fas fa-gavel"></i> Precedenti Penali (Storia Giudiziaria)</h3>
+                <ul>
+                    <li><strong>Condanne Penali e Storia del Crimine:</strong> Dettagli sui crimini commessi dal personaggio, se applicabile. Queste informazioni vengono criptate per la privacy, ma le forze dell'ordine o altri giocatori con la giusta capacità potrebbero scoprire dettagli nascosti. La Storia del Crimine fornisce un contesto sulle attività legali o illegali del personaggio.</li>
+                </ul>
+            </div>
+            
+            <div class="sheet-section">
+                <h3><i class="fas fa-brain"></i> Caratteristiche Psico-Emotive</h3>
+                <ul>
+                    <li><strong>Avversione e/o Vincoli Morali:</strong> Descrizione dei limiti morali del personaggio, ad esempio tabù o comportamenti che il personaggio non tollera. Queste informazioni sono importanti per la gestione del comportamento del personaggio durante il gioco.</li>
+                    <li><strong>Note:</strong> Eventi significativi che hanno influenzato la vita del personaggio, aiutando a costruire un background ricco e coerente con il resto della storia del PG.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-card animate__animated animate__fadeInUp animate__delay-2s">
+            <h2><i class="fas fa-file-alt"></i> Esempio di Scheda Background</h2>
+            <div class="example-sheet">
+                <div class="classified-stamp">CLASSIFIED</div>
+                
+                <!-- Polaroid spillata in alto a destra -->
+                <div class="polaroid-container">
+                    <div class="polaroid">
+                        <div class="polaroid-image">
+                            <img src="https://i.ytimg.com/vi/hgp4ZKc5kRs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD-lPly5ivIVoRYEgfQ4FyEa0Fc9Q" alt="Foto segnaletica di Tommy Angelo">
+                        </div>
+                        <div class="polaroid-caption">T. Angelo, 1972</div>
+                    </div>
+                    <div class="pushpin"></div>
+                </div>
+                
+                <div class="sheet-header">
+                    <h3>PEAKVILLE PD - ARCHIVIO PERSONALE</h3>
+                    <p>File #7042 - Classificazione: Riservato</p>
+                </div>
+                
+                <div class="sheet-section">
+                    <h3>INFORMAZIONI GENERALI</h3>
+                    <p><span class="field-label">Nome e Cognome:</span> <span class="field-value">Thomas "Tommy" Angelo</span></p>
+                    <p><span class="field-label">Sesso:</span> <span class="field-value">Maschio</span></p>
+                    <p><span class="field-label">Data di Nascita:</span> <span class="field-value">12/08/1938</span></p>
+                    <p><span class="field-label">Provenienza:</span> <span class="field-value">Little Italy, New York</span></p>
+                    <p><span class="field-label">Cittadinanza:</span> <span class="field-value">Statunitense</span></p>
+                    <p><span class="field-label">Etnia:</span> <span class="field-value">Italo-Americana</span></p>
+                    <p><span class="field-label">Stato Civile:</span> <span class="field-value">Sposato</span></p>
+                    <p><span class="field-label">Gruppo Sanguigno:</span> <span class="field-value">A+</span></p>
+                    <p><span class="field-label">Numero di Scarpe:</span> <span class="field-value">42</span></p>
+                </div>
+                
+                <div class="sheet-section">
+                    <h3>PRECEDENTI PENALI</h3>
+                    <p><span class="field-label">Condanne Penali:</span> <span class="encrypted-field">$D#$@F%^&*SDD@$#%FD#$D@</span></p>
+                    <p><span class="field-label">Storia del Crimine:</span> <span class="encrypted-field">@#$%^&*()SDFGH*&^%$#@!QASDRT$%^&*FGHJ</span></p>
+                </div>
+                
+                <div class="sheet-section">
+                    <h3>CARATTERISTICHE PSICO-EMOTIVE</h3>
+                    <p><span class="field-label">Avversione/Vincoli Morali:</span> <span class="encrypted-field">*&^%$#WERTYUI(*&^%$#DFGHJ*&^%$DFG</span></p>
+                    <p><span class="field-label">Note:</span> <span class="encrypted-field">@#$%^&*()_+}{POIUY&^%$#SDFGHJ)(*&^%$#GHJK</span></p>
+                </div>
+                
+                <div class="encrypted-info">
+                    <p><i class="fas fa-lock"></i> Informazioni criptate accessibili solo a personale autorizzato</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card animate__animated animate__fadeInUp animate__delay-3s">
+            <h2><i class="fas fa-info-circle"></i> Funzione Generale della Scheda</h2>
+            <p>Questa scheda funge da documento di riferimento per il personaggio all'interno del gioco, stabilendo una base per le sue interazioni con altri personaggi, con le forze dell'ordine e con gli eventi. La parte criptata e consultabile solo da Tier di Intuito permette di aggiungere profondità psicologica al personaggio, rendendo il gioco più dinamico e realistico.</p>
+            <p>La scheda background non è solamente un insieme di informazioni, ma rappresenta l'identità che il tuo personaggio porterà all'interno del mondo di gioco. Scegli con cura ogni dettaglio, poiché ognuno di essi contribuirà a definire il tuo percorso nella Peakville degli anni '70.</p>
+            
+            <div class="corner-decoration top-right"></div>
+            <div class="corner-decoration bottom-left"></div>
+        </div>
+    <!-- Footer moderno -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/about" class="footer-link">About</a>
+                <a href="/privacy" class="footer-link">Privacy</a>
+                <a href="/terms" class="footer-link">Terms</a>
+            </div>
+            <div class="copyright">
+                © 2025 Peakville - All rights reserved
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Configura effetto particelle
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 30,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                    },
+                    "opacity": {
+                        "value": 0.4,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 2,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": false
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 1,
+                        "direction": "top",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "bubble"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "bubble": {
+                            "distance": 200,
+                            "size": 4,
+                            "duration": 2,
+                            "opacity": 0.8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            // Effetto hover sulle card
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.3)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.25)';
+                });
+            });
+
+            // Effetto per il testo criptato
+            const encryptedFields = document.querySelectorAll('.encrypted-field');
+            encryptedFields.forEach(field => {
+                field.addEventListener('mouseover', function() {
+                    this.style.backgroundColor = 'rgba(108, 92, 231, 0.2)';
+                    this.style.cursor = 'not-allowed';
+                });
+
+                field.addEventListener('mouseout', function() {
+                    this.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                });
+            });
+
+            // Mostra i contenuti con animazione al caricamento
+            document.querySelectorAll('.animate__animated').forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('animate__visible');
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+
+</html>
